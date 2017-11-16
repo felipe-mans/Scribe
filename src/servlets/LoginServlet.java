@@ -1,0 +1,58 @@
+package servlets;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public LoginServlet() {
+        super();
+    }
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		//Error Checking
+		if (username == null){
+			request.setAttribute("error", "Error in RegisterServ: username para null");
+			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			return;
+		}
+		else if (password == null){
+			request.setAttribute("error", "Error in RegisterServ: password para null");
+			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			return;
+		} else if (username.equals("") || password.equals("")){
+			request.setAttribute("error", "Fields cannot be empty");
+			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			return;
+		}
+		
+		JDBCQuery jdbcq = new JDBCQuery();
+		jdbcq.connect();
+		if (jdbcq.doesUserExist(username)){
+			//correct password
+			if (jdbcq.isCorrectPassword(username, password)){
+				jdbcq.stop();
+				response.sendRedirect("jsp/userpage.jsp?username="+username);
+			}
+			//incorrect password
+			else{
+				jdbcq.stop();
+				request.setAttribute("error", "Incorrect password");
+				request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			}
+		}
+		//invalid username
+		else{
+			jdbcq.stop();
+			request.setAttribute("error", "Incorrect username");
+			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+		}
+	}
