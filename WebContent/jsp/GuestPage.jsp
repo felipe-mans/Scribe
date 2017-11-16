@@ -5,7 +5,11 @@
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-
-
+		<div>
+			Welcome to Scribe!
+		</div>
+		<div>
+			whatever else we want in here.
+		</div>
 	</body>
 </html>

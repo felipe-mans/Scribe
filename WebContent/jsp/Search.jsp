@@ -11,7 +11,10 @@ if(signedIn) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-
-
+		<div class = "searchTitle">
+			Search Results for <!-- search -->.
+		</div>
+		<div class = "searchResults">
+		</div>
 	</body>
 </html>

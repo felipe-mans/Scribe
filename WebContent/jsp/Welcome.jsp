@@ -7,6 +7,6 @@
 		<title>Welcome to Scribe!</title>
 	</head>
 	<body>
-
+		
 	</body>
 </html>
