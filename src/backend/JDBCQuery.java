@@ -1,17 +1,47 @@
 package backend;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.eclipse.jdt.internal.compiler.ast.Statement;
-
 public class JDBCQuery {
 
+	private static Connection conn = null;
+	private static ResultSet rs = null;
+	private static PreparedStatement ps = null;
+	
+	public static void connect(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/Scribe?user=root&password=root&useSSL=false");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void close(){
+		try{
+			if (rs!=null){
+				rs.close();
+				rs = null;
+			}
+			if(conn != null){
+				conn.close();
+				conn = null;
+			}
+			if(ps != null ){
+				ps = null;
+			}
+		}catch(SQLException sqle){
+			System.out.println("connection close error");
+			sqle.printStackTrace();
+		}
+	}
+	
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/Scribe";
@@ -25,8 +55,6 @@ public class JDBCQuery {
 	// Database credentials
 	static final String USER = "root";
 	static final String PASS = "root";
-
-	Connection conn = null;
 	Statement stmt = null;
 
 	public JDBCQuery() {
@@ -38,16 +66,6 @@ public class JDBCQuery {
 		}
 	}
 
-	public void connect() {
-		try {
-			// STEP 3: Open a connection
-			System.out.println("Connecting to a selected database...");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			System.out.println("Connected database successfully...");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void stop() {
 		try {
@@ -99,21 +117,30 @@ public class JDBCQuery {
 		}
 		return false;
 	}
-
-	public boolean isCorrectPassword(String username, String password) {
+	
+	public static boolean validate(String usr, String pwd){
+		connect();
 		try {
-			stmt = conn.createStatement();
-			ResultSet result = stmt.executeQuery("SELECT * from Users where username='" + username + "'");
-			while (result.next()) {
-				return password.equals(result.getString("userPass"));
+			ps = conn.prepareStatement("SELECT password FROM User WHERE username=?");
+			ps.setString(1, usr);
+			rs = ps.executeQuery();
+			System.out.println(rs);
+			if(rs.next()){
+				if(pwd.equals(rs.getString("password")) ){
+					return true;
+				}
 			}
 		} catch (SQLException e) {
+			System.out.println("SQLException in function \"validate\"");
 			e.printStackTrace();
+		}finally{
+			close();
 		}
-		return false;
+		return false;		
 	}
-
+	/***
 	public Question getQuestion(Question.Difficulty difficulty) {
+	***/
 
 	public static void main(String[] args) {
 		JDBCQuery Q = new JDBCQuery();
