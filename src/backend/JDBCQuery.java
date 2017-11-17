@@ -1,16 +1,75 @@
 package backend;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Random;
+
+import org.eclipse.jdt.internal.compiler.ast.Statement;
 
 public class JDBCQuery {
 
 	private static Connection conn = null;
 	private static ResultSet rs = null;
 	private static PreparedStatement ps = null;
-	
-	public static void connect(){
+	private Statement stmt = null;
+
+	// JDBC driver name and database URL
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:mysql://localhost/Scribe";
+
+	// SELECT statements
+
+	// Users
+	private final static String selectUserByUsername = "SELECT * FROM Users WHERE username=?";
+	private final static String selectUserByUserID = "SELECT * FROM Users WHERE userID=?";
+	private final static String selectPassword = "SELECT password FROM User WHERE username=?";
+
+	// Classes
+	private final static String selectClassByClassID = "SELECT * FROM Classes WHERE classID=?";
+	private final static String selectClassByClassname = "SELECT * FROM Classes WHERE classname=?";
+
+	// Documents
+	private final static String getUserUploads = "SELECT * FROM Documents WHERE userID=?";
+
+	// Enrollments
+	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
+	private final static String getUserEnrollments = "SELECT * FROM Enrollments WHERE userID=?";
+
+	// Uploads
+	private final static String getClassDocuments = "SELECT * FROM Uploads WHERE classID=?";
+
+	// Messages
+	private final static String getMessagesFromClass = "SELECT * FROM Messages WHERE classID=?";
+
+	// INSERT statements
+
+	// Users
+	private final static String addUser = "INSERT INTO Users(fname,  email) VALUES(?, ?, ?, ?, ?)";
+
+	// Classes
+	private final static String addClass = "INSERT INTO Classes(classname, private) VALUES(?,?)";
+
+	// Documents
+	private final static String addDocument = "INSERT INTO Documents(userID, file) VALUES(?,?)";
+
+	// Enrollments
+	private final static String addEnrollment = "INSERT INTO Enrollments(classID, userID) VALUES(?,?)";
+
+	// Uploads
+	private final static String addUpload = "INSERT INTO Uploads(classID, docID) VALUES(?,?)";
+
+	// Database credentials
+	static final String USER = "root";
+	static final String PASS = "root";
+
+	public JDBCQuery() {
+		// Register JDBC driver
+		try {
+			new com.mysql.jdbc.Driver();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Scribe?user=root&password=root&useSSL=false");
@@ -22,50 +81,25 @@ public class JDBCQuery {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void close(){
-		try{
-			if (rs!=null){
+
+	public static void close() {
+		try {
+			if (rs != null) {
 				rs.close();
 				rs = null;
 			}
-			if(conn != null){
+			if (conn != null) {
 				conn.close();
 				conn = null;
 			}
-			if(ps != null ){
+			if (ps != null) {
 				ps = null;
 			}
-		}catch(SQLException sqle){
+		} catch (SQLException sqle) {
 			System.out.println("connection close error");
 			sqle.printStackTrace();
 		}
 	}
-	
-	// JDBC driver name and database URL
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/Scribe";
-
-	// Select statements
-	private final static String selectUser = "SELECT * FROM Users WHERE username=?";
-
-	// Insert statements
-	private final static String addUser = "INSERT INTO Users(username, fname, lname, gamesPlayed, email) VALUES(?, ?, ?, ?, ?)";
-
-	// Database credentials
-	static final String USER = "root";
-	static final String PASS = "root";
-	Statement stmt = null;
-
-	public JDBCQuery() {
-		// Register JDBC driver
-		try {
-			new com.mysql.jdbc.Driver();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 
 	public void stop() {
 		try {
@@ -117,30 +151,27 @@ public class JDBCQuery {
 		}
 		return false;
 	}
-	
-	public static boolean validate(String usr, String pwd){
+
+	public static boolean validate(String username, String password) {
 		connect();
 		try {
 			ps = conn.prepareStatement("SELECT password FROM User WHERE username=?");
-			ps.setString(1, usr);
+			ps.setString(1, username);
 			rs = ps.executeQuery();
 			System.out.println(rs);
-			if(rs.next()){
-				if(pwd.equals(rs.getString("password")) ){
+			if (rs.next()) {
+				if (password.equals(rs.getString("password"))) {
 					return true;
 				}
 			}
 		} catch (SQLException e) {
 			System.out.println("SQLException in function \"validate\"");
 			e.printStackTrace();
-		}finally{
+		} finally {
 			close();
 		}
-		return false;		
+		return false;
 	}
-	/***
-	public Question getQuestion(Question.Difficulty difficulty) {
-	***/
 
 	public static void main(String[] args) {
 		JDBCQuery Q = new JDBCQuery();
