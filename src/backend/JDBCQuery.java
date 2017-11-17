@@ -109,12 +109,14 @@ public class JDBCQuery {
 		}
 	}
 
-	public void addUser(String username, String password, String fname, String lname, String email) {
+	// USER METHODS
+
+	public void addUser(String fname, String lname, String username, String password, String email) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(addUser);
-			ps.setString(1, username);
-			ps.setString(2, fname);
-			ps.setString(3, lname);
+			ps.setString(1, fname);
+			ps.setString(2, lname);
+			ps.setString(3, username);
 			ps.setString(4, password);
 			ps.setString(5, email);
 			ps.executeUpdate();
@@ -123,13 +125,20 @@ public class JDBCQuery {
 		}
 	}
 
-	public String getName(String username) {
+	/**
+	 * gets User object using username
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public User getUserByUsername(String username) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(selectUser);
+			PreparedStatement ps = conn.prepareStatement(selectUserByUsername);
 			ps.setString(1, username);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return result.getString("fname") + result.getString("lname");
+				return new User(result.getString("fname"), result.getString("lname"), result.getString("username"),
+						result.getString("password"), result.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -137,9 +146,37 @@ public class JDBCQuery {
 		return null;
 	}
 
+	/**
+	 * Returns User object using userID
+	 * 
+	 * @param userID
+	 * @return
+	 */
+
+	public User getUserByUserID(int userID) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(selectUserByUserID);
+			ps.setInt(1, userID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return new User(result.getString("fname"), result.getString("lname"), result.getString("username"),
+						result.getString("password"), result.getString("email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * does username currently exist
+	 * 
+	 * @param username
+	 * @return true if username exists, else false
+	 */
 	public boolean doesUserExist(String username) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(selectUser);
+			PreparedStatement ps = conn.prepareStatement(selectUserByUsername);
 			ps.setString(1, username);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
@@ -152,10 +189,17 @@ public class JDBCQuery {
 		return false;
 	}
 
+	/**
+	 * validates password entry to username
+	 * 
+	 * @param username
+	 * @param password
+	 * @return true if passwords match, else false
+	 */
 	public static boolean validate(String username, String password) {
 		connect();
 		try {
-			ps = conn.prepareStatement("SELECT password FROM User WHERE username=?");
+			ps = conn.prepareStatement(selectPassword);
 			ps.setString(1, username);
 			rs = ps.executeQuery();
 			System.out.println(rs);
@@ -172,6 +216,8 @@ public class JDBCQuery {
 		}
 		return false;
 	}
+
+	// CLASS METHODS
 
 	public static void main(String[] args) {
 		JDBCQuery Q = new JDBCQuery();
