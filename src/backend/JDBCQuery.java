@@ -4,6 +4,8 @@ import java.sql.*;
 
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
+import databaseObjects.User;
+
 public class JDBCQuery {
 
 	private static Connection conn = null;
@@ -111,6 +113,15 @@ public class JDBCQuery {
 
 	// USER METHODS
 
+	/**
+	 * Add a new user to database
+	 * 
+	 * @param fname
+	 * @param lname
+	 * @param username
+	 * @param password
+	 * @param email
+	 */
 	public void addUser(String fname, String lname, String username, String password, String email) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(addUser);
@@ -217,7 +228,69 @@ public class JDBCQuery {
 		return false;
 	}
 
+	// user UPDATE methods
+
+	// TODO
+	public void updateUserFirstname(String newFirstname) {
+
+	}
+
+	// TODO
+	public void updateUserLastname(String newLastname) {
+
+	}
+
+	// TODO
+	public void updateUserUsername(String newUsername) {
+
+	}
+
+	// TODO
+	public void updateUserPassword(String newPassword) {
+
+	}
+
+	// TODO
+	public void updateUserEmail(String newEmail) {
+
+	}
+
 	// CLASS METHODS
+
+	public void addClass(String classname, boolean isPrivate) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(addClass);
+			ps.setString(1, classname);
+			ps.setBoolean(2, isPrivate);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// TODO
+	public String getClassFromID(String classID) {
+
+		return "";
+	}
+
+	// TODO
+	public boolean isClassPrivate() {
+
+	}
+
+	// class UPDATE methods
+
+	// TODO
+	public boolean updateClassPrivacy() {
+
+	}
+
+	// DOCUMENT METHODS
+
+	// UPLOAD METHODS
+
+	// METHOD METHODS
 
 	public static void main(String[] args) {
 		JDBCQuery Q = new JDBCQuery();
