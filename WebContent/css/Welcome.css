@@ -1,0 +1,121 @@
+@CHARSET "ISO-8859-1";
+body{
+	/*set background color */
+}
+h1, h4 {
+	text-align: center;
+	length: 100%;
+}
+
+p {
+	text-align: center;
+	length: 100%;
+}
+
+.text {
+	line-height: 2em;
+	width: 50%;
+}
+
+#enter {
+	width: 20%;
+}
+
+.form {
+	text-align: center;
+}
+
+.formBackground {
+	display: none;
+    position: fixed; 
+    z-index: 1;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.formContent {
+	display: none;
+	width: 20%;
+	height: 40%;
+	margin-top: 10%;
+	margin-left: 40%;
+	border: 1px solid black;
+	padding: 5px;
+	background-color: #80b3ff;
+}
+
+.bar {
+	/*set color of top and bottom bars*/
+}
+
+.button {
+	display: inline-block;
+	padding: 15px 25px;
+	font-size: 24px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #3465a4;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 9px #999;
+}
+
+.button:hover {
+	background-color: #729fcf;
+}
+
+.button:active {
+  background-color: #729fcf;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#welcomeSection {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	width: 99%;
+	height: 10%;
+}
+
+#welcomeTitle {
+	margin: auto;
+	text-align: center;
+}
+
+#buttonSection {
+	margin: auto;
+	position: absolute;
+	bottom: 0;
+	width: 99%;
+	height: 30%;
+}
+
+#message {
+	position: relative;
+	margin: auto;
+	height: 50%;
+	text-align: center;
+}
+
+#buttons {
+	margin: auto;
+	height: 50%;
+	position: relative;
+	text-align: center;
+}
+
+#buttonList {
+	list-style-type: none;
+	margin:auto;
+	width: 60%;
+}
+
+#button {
+	display: inline;
+	padding: 20px;
+}

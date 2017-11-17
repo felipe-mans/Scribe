@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-boolean signedIn = false; //get this variable from the session
+boolean signedIn = true; //get this variable from the session
 if(signedIn) {%>
 	<%@include file="NavBarM.jsp"%>
 <%} else {%>
@@ -11,55 +11,54 @@ if(signedIn) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
+	
 		<div class = "titleBar">
 			<div class = "logo">
 			</div>
 			<div class = "welcome">
-				Welcome to <!-- className -->
+				<h1>Welcome to (INSERT CLASS NAME)</h1>
 			</div>
 			<div class = "creator">
-				Created by: <!-- creator -->
+				<h2>Created by: <!-- creator --></h2>
 			</div>
 		</div>
+		
+		<div id="members" class="members">
+			<h3>Members</h3><hr />
+			<% 
+				//boolean isPublic = false; //get this variable from the database
+				//if(isCreator || isPublic) {%>
+				<!-- addMember button -->
+				<%//}%>
+			<ul>
+			<li>This is a test</li>
+			</ul>
+		</div>
+		
+		<div id="discussion" class="discussion">
+			<h3>Discussion Board</h3><hr />
+			<ul>
+			<li>This is a test</li>
+			</ul>
+		</div>
+	
+		<div id="resources" class="resources">
+			<h3>Resources</h3><hr />
+			<ul>
+			<li>This is a test</li>
+			</ul>
+		</div>
+		<!-- What is this for?
 		<div class = "srButtons">
 			<div class = "sButton">
 			</div>
 			<%
 			boolean isCreator = false; //get this variable from the session
 			if(isCreator) {%>
-				<div class = "rButton">
+			<div class = "rButton">
 			</div>
 			<%}%>
 		</div>
-		<div class = "members">
-			<div class = "membersTitle">
-				Members
-				<%
-				boolean isPublic = false; //get this variable from the database
-				if(isCreator || isPublic) {%>
-				<!-- addMember button -->
-				<%}%>
-			</div>
-			<div class = "membersList">
-			</div>
-		</div>
-		<div class = "discussion">
-			<div class = "discussionTitle">
-				Discussion
-				<!-- addPost button -->
-			</div>
-			<div class = "discussionList">
-			</div>
-			<div class = "discussionPost">
-			</div>
-		</div>
-		<div class = "resources">
-			<div class = "resourcesTitle">
-				Resources
-				<!-- addResource button -->
-			</div>
-			<div class = "resourcesList">
-			</div>
-		</div>
+		-->
 	</body>
 </html>

@@ -5,11 +5,14 @@
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-		<div>
-			Welcome to Scribe!
-		</div>
-		<div>
-			whatever else we want in here.
-		</div>
+		<h1>Welcome to Scribe!</h1>
+	<h3>Sign up today to:</h3>
+	<ul>
+		<li>Join class groups</li>
+		<li>Create class groups</li>
+		<li>Upload/Share class resources</li>
+		<li>Keep your classes organized</li>
+		<li>Improve your grades!</li>
+	</ul>
 	</body>
 </html>

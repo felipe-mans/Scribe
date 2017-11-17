@@ -5,27 +5,22 @@
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-		<div class = "welcome">
-			<div class = "welcomeLogo">
-			</div>
-			<div class = "welcomeTitle">
-				Welcome <!-- username -->.
-			</div>
+		
+		<h1>Welcome to member page</h1>
+	
+		<div id="classes" class="classes">
+			<h3>My Classes</h3> <hr />
+			<ul>
+			<li><a href="ClassPage.jsp">This is a test</a></li>
+			</ul>
 		</div>
-		<div class = "classes">
-			<div class = "classesTitle">
-				Classes
-			</div>
-			<div class = "classesList">
-			</div>
+		
+		<div id="documents" class="documents">
+			<h3>My Documents</h3> <hr />
+			<ul>
+			<li>This is a test</li>
+			</ul>
 		</div>
-		<div class = "documents">
-			<div class = "documentsTitle">
-				Your Documents
-				<!-- searchBar -->
-			</div>
-			<div class = "documentsList">
-			</div>
-		</div>
+	
 	</body>
 </html>
