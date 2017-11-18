@@ -58,6 +58,24 @@ public class JDBCQuery {
 	// Uploads
 	private final static String addUpload = "INSERT INTO Uploads(classID, docID) VALUES(?,?)";
 
+	// UPDATE statements
+
+	// Users
+	private final static String updateUserFirstname = "UPDATE Users SET firstname=? WHERE userID=?";
+
+	private final static String updateUserLastname = "UPDATE Users SET lastame=? WHERE userID=?";
+
+	private final static String updateUserUsername = "UPDATE Users SET username=? WHERE userID=?";
+
+	private final static String updateUserPassword = "UPDATE Users SET password=? WHERE userID=?";
+
+	private final static String updateUserEmail = "UPDATE Users SET email=? WHERE userID=?";
+
+	// Classes
+	private final static String updateClassname = "UPDATE Classes SET classname=? WHERE classID=?";
+
+	private final static String updateClassPrivacy = "UPDATE Classes SET private=? WHERE classID=?";
+
 	// Database credentials
 	static final String USER = "root";
 	static final String PASS = "root";
@@ -268,21 +286,70 @@ public class JDBCQuery {
 		}
 	}
 
-	// TODO
-	public String getClassFromID(String classID) {
-
-		return "";
+	/**
+	 * Get classname using classID
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public String getClassFromID(int classID) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(selectClassByClassID);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return result.getString("classname");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	// TODO
-	public boolean isClassPrivate() {
+	/**
+	 * Return whether class is private or not
+	 * 
+	 * @param classID
+	 * @return true if private else false
+	 */
+	public boolean isClassPrivate(int classID) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(selectClassByClassID);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return result.getString("private");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 
 	// class UPDATE methods
 
-	// TODO
-	public boolean updateClassPrivacy() {
+	/**
+	 * Assume classID exists at this point Reverses class setting from private
+	 * to public or vice versa
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public boolean updateClassPrivacy(int classID) {
+
+		boolean newPrivacySetting = !(this.isClassPrivate(classID));
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateClassPrivacy);
+			ps.setBoolean(1, newPrivacySetting);
+			ps.setInt(2, classID);
+			ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 
