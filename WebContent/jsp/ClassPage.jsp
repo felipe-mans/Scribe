@@ -35,6 +35,11 @@ if(signedIn) {%>
 			</ul>
 		</div>
 		
+		<form name="chatform" onsubmit="return sendMessage();">
+			<input type="text" name="message" value="Type Here!" /><br />
+			<input type="submit" name="submit" value="Send Message" />
+		</form>
+		
 		<div id="discussion" class="discussion">
 			<h3>Discussion Board</h3><hr />
 			<ul>
