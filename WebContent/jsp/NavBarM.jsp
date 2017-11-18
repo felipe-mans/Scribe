@@ -6,6 +6,25 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Scribe</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Member.css">
+		<script>
+			var socket;
+			function connectToServer()
+			{
+				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
+				socket.onopen = function(event) {}
+				socket.onmessage = function(event)
+				{
+					document.getElementById("discussion").innerHTML += event.data + "<br />";
+				}
+				socket.onclose = function(event){}
+			}
+			
+			function sendMessage()
+			{
+				socket.send("document.chatform.message.value);
+				return false;
+			}
+		</script>
 	</head>
 	<body>
 	
