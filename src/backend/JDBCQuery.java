@@ -29,14 +29,14 @@ public class JDBCQuery {
 	private final static String selectClassByClassname = "SELECT * FROM Classes WHERE classname=?";
 
 	// Documents
-	private final static String getUserUploads = "SELECT * FROM Documents WHERE userID=?";
+	private final static String getUserDocuments = "SELECT * FROM Documents WHERE userID=?";
 
 	// Enrollments
 	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
 	private final static String getUserEnrollments = "SELECT * FROM Enrollments WHERE userID=?";
 
 	// Uploads
-	private final static String getClassDocuments = "SELECT * FROM Uploads WHERE classID=?";
+	private final static String getClassUploads = "SELECT * FROM Uploads WHERE classID=?";
 
 	// Messages
 	private final static String getMessagesFromClass = "SELECT * FROM Messages WHERE classID=?";
@@ -362,6 +362,21 @@ public class JDBCQuery {
 
 		vector<Integer> userDocuments = new vector<>();
 
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUserDocuments);
+			ps.setInt(1, userID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				userDocuments.pushback(result.getInt("docID"));
+			}
+
+			return userDocuments;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	// ENROLLMENT METHODS
@@ -369,17 +384,49 @@ public class JDBCQuery {
 	/**
 	 * return vector of userIDs associated with a classID
 	 */
-	public vector<Integer> getUsersInClass(int classID) {
+	public vector<Integer> getUsersEnrolledInClass(int classID) {
 
 		vector<Integer> usersInClass = new vector<>();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUsersEnrolledInClass);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				usersInClass.pushback(result.getInt("userID"));
+			}
+
+			return usersInClass;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	/**
 	 * return vector of classIDs associated with userID
 	 */
-	public vector<Integer> getUserClasses(int userID) {
+	public vector<Integer> getUserEnrollments(int userID) {
 
-		vector<Integer> usersClasses = new vector<>();
+		vector<Integer> enrollment = new vector<>();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUserEnrollments);
+			ps.setInt(1, userID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				enrollment.pushback(result.getInt("classID"));
+			}
+
+			return enrollment;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	// UPLOAD METHODS
@@ -390,9 +437,25 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public vector<Integer> getClassDocuments(int classID) {
+	public vector<Integer> getClassUploads(int classID) {
 
 		vector<Integer> classDocuments = new vector<>();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getClassUploads);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				classDocuments.pushback(result.getInt("docID"));
+			}
+
+			return classDocuments;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	// MESSAGE METHODS
@@ -403,9 +466,25 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public vector<Integer> getClassMessages(int classID) {
+	public vector<Integer> getMessagesFromClass(int classID) {
 
 		vector<Integer> classMessages = new vector<>();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getMessagesFromClass);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				classMessages.pushback(result.getInt("messageID"));
+			}
+
+			return classMessages;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	/**
