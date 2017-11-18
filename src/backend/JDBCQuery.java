@@ -76,6 +76,8 @@ public class JDBCQuery {
 
 	private final static String updateClassPrivacy = "UPDATE Classes SET private=? WHERE classID=?";
 
+	// Messages
+
 	// Database credentials
 	static final String USER = "root";
 	static final String PASS = "root";
@@ -251,26 +253,72 @@ public class JDBCQuery {
 	// TODO
 	public void updateUserFirstname(String newFirstname) {
 
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateUserFirstname);
+			ps.setBoolean(1, newFirstname);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	// TODO
 	public void updateUserLastname(String newLastname) {
 
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateUserLastname);
+			ps.setBoolean(1, newLastname);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// TODO
 	public void updateUserUsername(String newUsername) {
 
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateUserUsername);
+			ps.setBoolean(1, newUsername);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// TODO
 	public void updateUserPassword(String newPassword) {
 
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateUserPassword);
+			ps.setBoolean(1, newPassword);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// TODO
 	public void updateUserEmail(String newEmail) {
 
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateUserEmail);
+			ps.setBoolean(1, newEmail);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// CLASS METHODS
@@ -344,7 +392,7 @@ public class JDBCQuery {
 			PreparedStatement ps = conn.prepareStatement(updateClassPrivacy);
 			ps.setBoolean(1, newPrivacySetting);
 			ps.setInt(2, classID);
-			ps.executeQuery();
+			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
