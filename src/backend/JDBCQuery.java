@@ -1,6 +1,15 @@
 package backend;
 
-import java.sql.*;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 
 import org.apache.tomcat.jni.File;
 import org.eclipse.jdt.internal.compiler.ast.Statement;
@@ -253,69 +262,58 @@ public class JDBCQuery {
 	// user UPDATE methods
 
 	public void updateUserFirstname(String newFirstname) {
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserFirstname);
-			ps.setBoolean(1, newFirstname);
+			ps.setString(1, newFirstname);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
-
 	}
 
 	public void updateUserLastname(String newLastname) {
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserLastname);
-			ps.setBoolean(1, newLastname);
+			ps.setString(1, newLastname);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	public void updateUserUsername(String newUsername) {
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserUsername);
-			ps.setBoolean(1, newUsername);
+			ps.setString(1, newUsername);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	public void updateUserPassword(String newPassword) {
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserPassword);
-			ps.setBoolean(1, newPassword);
+			ps.setString(1, newPassword);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	public void updateUserEmail(String newEmail) {
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserEmail);
-			ps.setBoolean(1, newEmail);
+			ps.setString(1, newEmail);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	// CLASS METHODS
@@ -363,13 +361,12 @@ public class JDBCQuery {
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return result.getString("private");
+				return result.getBoolean("private");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
-
+		return false;
 	}
 
 	// class UPDATE methods
@@ -381,21 +378,16 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public boolean updateClassPrivacy(int classID) {
-
+	public void updateClassPrivacy(int classID) {
 		boolean newPrivacySetting = !(this.isClassPrivate(classID));
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateClassPrivacy);
 			ps.setBoolean(1, newPrivacySetting);
 			ps.setInt(2, classID);
 			ps.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
-
 	}
 
 	// DOCUMENT METHODS
@@ -407,7 +399,6 @@ public class JDBCQuery {
 	 * @return
 	 */
 	public File getDocumentFile(int docID) {
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getDocumentFile);
 			ps.setInt(1, docID);
@@ -415,9 +406,15 @@ public class JDBCQuery {
 			while (result.next()) {
 				// TODO
 				// need to verify how to retrieve longblob
-				return result.getBlob("file");
+				Blob blob = result.getBlob("file");
+				File file = new File();
+				InputStream in = blob.getBinaryStream();
+				OutputStream out = new FileOutputStream(file);
+				byte[] buff = blob.getBytes(1,(int)blob.length());
+				out.write(buff);
+				out.close();
+				return file;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -427,16 +424,16 @@ public class JDBCQuery {
 	/**
 	 * return vector off all docIDs associated with a given userID
 	 */
-	public vector<Integer> getUserDocuments(int userID) {
+	public Vector<Integer> getUserDocuments(int userID) {
 
-		vector<Integer> userDocuments = new vector<>();
+		Vector<Integer> userDocuments = new Vector<Integer>();
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUserDocuments);
 			ps.setInt(1, userID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				userDocuments.pushback(result.getInt("docID"));
+				userDocuments.add(result.getInt("docID"));
 			}
 
 			return userDocuments;
@@ -453,16 +450,16 @@ public class JDBCQuery {
 	/**
 	 * return vector of userIDs associated with a classID
 	 */
-	public vector<Integer> getUsersEnrolledInClass(int classID) {
+	public Vector<Integer> getUsersEnrolledInClass(int classID) {
 
-		vector<Integer> usersInClass = new vector<>();
+		Vector<Integer> usersInClass = new Vector<Integer>();
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUsersEnrolledInClass);
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				usersInClass.pushback(result.getInt("userID"));
+				usersInClass.add(result.getInt("userID"));
 			}
 
 			return usersInClass;
@@ -477,16 +474,16 @@ public class JDBCQuery {
 	/**
 	 * return vector of classIDs associated with userID
 	 */
-	public vector<Integer> getUserEnrollments(int userID) {
+	public Vector<Integer> getUserEnrollments(int userID) {
 
-		vector<Integer> enrollment = new vector<>();
+		Vector<Integer> enrollment = new Vector<Integer>();
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUserEnrollments);
 			ps.setInt(1, userID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				enrollment.pushback(result.getInt("classID"));
+				enrollment.add(result.getInt("classID"));
 			}
 
 			return enrollment;
@@ -506,16 +503,16 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public vector<Integer> getClassUploads(int classID) {
+	public Vector<Integer> getClassUploads(int classID) {
 
-		vector<Integer> classDocuments = new vector<>();
+		Vector<Integer> classDocuments = new Vector<Integer>();
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(getClassUploads);
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				classDocuments.pushback(result.getInt("docID"));
+				classDocuments.add(result.getInt("docID"));
 			}
 
 			return classDocuments;
@@ -535,16 +532,16 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public vector<Integer> getMessagesFromClass(int classID) {
+	public Vector<Integer> getMessagesFromClass(int classID) {
 
-		vector<Integer> classMessages = new vector<>();
+		Vector<Integer> classMessages = new Vector<Integer>();
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(getMessagesFromClass);
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				classMessages.pushback(result.getInt("messageID"));
+				classMessages.add(result.getInt("messageID"));
 			}
 
 			return classMessages;
