@@ -355,9 +355,70 @@ public class JDBCQuery {
 
 	// DOCUMENT METHODS
 
+	/**
+	 * return vector off all docIDs associated with a given userID
+	 */
+	public vector<Integer> getUserDocuments(int userID) {
+
+		vector<Integer> userDocuments = new vector<>();
+
+	}
+
+	// ENROLLMENT METHODS
+
+	/**
+	 * return vector of userIDs associated with a classID
+	 */
+	public vector<Integer> getUsersInClass(int classID) {
+
+		vector<Integer> usersInClass = new vector<>();
+	}
+
+	/**
+	 * return vector of classIDs associated with userID
+	 */
+	public vector<Integer> getUserClasses(int userID) {
+
+		vector<Integer> usersClasses = new vector<>();
+	}
+
 	// UPLOAD METHODS
 
-	// METHOD METHODS
+	/**
+	 * return vector of all docIDs associated with a given classID
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public vector<Integer> getClassDocuments(int classID) {
+
+		vector<Integer> classDocuments = new vector<>();
+	}
+
+	// MESSAGE METHODS
+
+	/**
+	 * return vector of all messages posted in a class's discussion board
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public vector<Integer> getClassMessages(int classID) {
+
+		vector<Integer> classMessages = new vector<>();
+	}
+
+	/**
+	 * update message content
+	 * 
+	 * @param messageID
+	 * @param newContent
+	 */
+	public void updateMessage(int messageID, String newContent) {
+
+		// TODO
+		return;
+	}
 
 	public static void main(String[] args) {
 		JDBCQuery Q = new JDBCQuery();
