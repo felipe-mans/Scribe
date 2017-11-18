@@ -2,6 +2,7 @@ package backend;
 
 import java.sql.*;
 
+import org.apache.tomcat.jni.File;
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
 import databaseObjects.User;
@@ -30,6 +31,7 @@ public class JDBCQuery {
 
 	// Documents
 	private final static String getUserDocuments = "SELECT * FROM Documents WHERE userID=?";
+	private final static String getDocumentFile = "SELECT * FROM Documents WHERE docID=?";
 
 	// Enrollments
 	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
@@ -250,7 +252,6 @@ public class JDBCQuery {
 
 	// user UPDATE methods
 
-	// TODO
 	public void updateUserFirstname(String newFirstname) {
 
 		try {
@@ -265,7 +266,6 @@ public class JDBCQuery {
 
 	}
 
-	// TODO
 	public void updateUserLastname(String newLastname) {
 
 		try {
@@ -279,7 +279,6 @@ public class JDBCQuery {
 		return null;
 	}
 
-	// TODO
 	public void updateUserUsername(String newUsername) {
 
 		try {
@@ -293,7 +292,6 @@ public class JDBCQuery {
 		return null;
 	}
 
-	// TODO
 	public void updateUserPassword(String newPassword) {
 
 		try {
@@ -307,7 +305,6 @@ public class JDBCQuery {
 		return null;
 	}
 
-	// TODO
 	public void updateUserEmail(String newEmail) {
 
 		try {
@@ -402,6 +399,30 @@ public class JDBCQuery {
 	}
 
 	// DOCUMENT METHODS
+
+	/**
+	 * Returns the LONGBLOB file associated with a docID
+	 * 
+	 * @param docID
+	 * @return
+	 */
+	public File getDocumentFile(int docID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getDocumentFile);
+			ps.setInt(1, docID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				// TODO
+				// need to verify how to retrieve longblob
+				return result.getBlob("file");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * return vector off all docIDs associated with a given userID
