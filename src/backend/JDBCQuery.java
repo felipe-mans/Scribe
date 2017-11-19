@@ -1,8 +1,10 @@
 package backend;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
+import javax.servlet.http.Part;
 
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
@@ -47,6 +51,7 @@ public class JDBCQuery {
 	// Enrollments
 	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
 	private final static String getUserEnrollments = "SELECT * FROM Enrollments WHERE userID=?";
+	private final static String getUserInClass = "SELECT * FROM Enrollments WHERE classID=? AND userID=?";
 
 	// Uploads
 	private final static String getClassUploads = "SELECT * FROM Uploads WHERE classID=?";
@@ -382,6 +387,29 @@ public class JDBCQuery {
 	}
 
 	/**
+	 * returns Classroom object from clasname
+	 * 
+	 * @param classname
+	 * @return
+	 */
+	public Classroom getClassFromClassname(String classname) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(selectClassByClassname);
+			ps.setString(1, classname);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return new Classroom(result.getInt("classID"), result.getString("classname"),
+						result.getBoolean("private"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
 	 * Return whether class is private or not
 	 * 
 	 * @param classID
@@ -435,25 +463,22 @@ public class JDBCQuery {
 
 	// DOCUMENT METHODS
 
-	public void addDocument(int userID, String documentname, File file) {
+	public void addDocument(int userID, String documentname, Part filePart) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(addDocument);
 			ps.setInt(1, userID);
 			ps.setString(2, documentname);
 
-			// TODO
-			// convert file to BLOB
+			InputStream inputstream = filePart.getInputStream();
+			ps.setBinaryStream(3, inputstream, (int) filePart.getSize());
 
-			ps.setBlob(3, file);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-
-	// GetDocumentFromID
-
-	// TODO
 
 	/**
 	 * Returns the LONGBLOB file associated with a docID
@@ -461,28 +486,34 @@ public class JDBCQuery {
 	 * @param docID
 	 * @return
 	 */
-
-	public File getDocumentFile(int docID) {
+	public UserDocument getDocumentFromID(int docID) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(getDocumentByDocumentID);
 			ps.setInt(1, docID);
 			ResultSet result = ps.executeQuery();
-			while (result.next()) {
-				// TODO
-				// need to verify how to retrieve longblob
-				Blob blob = result.getBlob("file");
-				File file = new File("here");
-				InputStream in = blob.getBinaryStream();
-				OutputStream out = FileOutputStream(file);
-				byte[] buff = blob.getBytes(1, (int) blob.length());
-				out.write(buff);
-				out.close();
-				return file;
 
-				// have file now
+			byte[] fileData = null;
+
+			while (result.next()) {
+
+				Blob blob = result.getBlob("file");
+
+				fileData = blob.getBytes(1, (int) blob.length());
+
+				File file = new File("Downloads" + result.getString("documentname"));
+
+				FileOutputStream out = new FileOutputStream(file);
+				out.write(fileData);
+				out.close();
+
+				return new UserDocument(docID, result.getString("documentname"), file);
 
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -512,24 +543,22 @@ public class JDBCQuery {
 
 	}
 
-	// Vector<UserDocument>
-
-	// TODO
-
 	/**
 	 * return vector of UserDocuments using userID
 	 * 
 	 * @param userID
 	 */
-	public void getUserDocuments(int userID) {
+	public Vector<UserDocument> getUserDocuments(int userID) {
 
 		Vector<Integer> docIDs = this.getUserDocuments2(userID);
 
 		Vector<UserDocument> userDocuments = new Vector<>();
 
 		for (Integer id : docIDs) {
-			// userDocuments.add(this.getDocumentFile(id));
+			userDocuments.add(this.getDocumentFromID(id));
 		}
+
+		return userDocuments;
 
 	}
 
@@ -550,6 +579,24 @@ public class JDBCQuery {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isUserEnrolledInClass(int classID, int userID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUserInClass);
+			ps.setInt(1, classID);
+			ps.setInt(2, userID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
 	/**
