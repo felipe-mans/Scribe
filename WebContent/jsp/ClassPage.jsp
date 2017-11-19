@@ -24,9 +24,16 @@ if(true) {%>
 			</div>
 		</div>
 		
+		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
+		
+		
+		
+		
+		<script>document.getElementById("requestButton").style.display="none";</script>
+		
 		<%
-			if(/*class is private and user is not in the class*/ true) { %>
-				<button id="requestButton">Request to Join Class</button>
+			if(/*class is private and user is not in the class and user is not a guest*/ true) { %>
+			<script>document.getElementById("requestButton").style.display="inline";</script>
 		<%}%>
 		
 		<div id="members" class="members">
