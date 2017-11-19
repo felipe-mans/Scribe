@@ -12,6 +12,10 @@ public class Classroom {
 		this.mIsPrivate = isPrivate;
 	}
 
+	public int getClassID() {
+		return this.mClassID;
+	}
+
 	public String getClassname() {
 		return this.mClassname;
 	}

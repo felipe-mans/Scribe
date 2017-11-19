@@ -18,6 +18,10 @@ public class User {
 		this.mEmail = email;
 	}
 
+	public int getUserID() {
+		return this.mUserID;
+	}
+
 	public String getFirstname() {
 		return this.mFirstname;
 	}
