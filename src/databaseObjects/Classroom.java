@@ -2,10 +2,12 @@ package databaseObjects;
 
 public class Classroom {
 
+	private int mClassID;
 	private String mClassname;
-	boolean mIsPrivate;
+	private boolean mIsPrivate;
 
-	public Classroom(String classname, boolean isPrivate) {
+	public Classroom(int classid, String classname, boolean isPrivate) {
+		this.mClassID = classid;
 		this.mClassname = classname;
 		this.mIsPrivate = isPrivate;
 	}

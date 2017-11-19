@@ -2,13 +2,15 @@ package databaseObjects;
 
 public class User {
 
+	private int mUserID;
 	private String mFirstname;
 	private String mLastname;
 	private String mUsername;
 	private String mPassword;
 	private String mEmail;
 
-	public User(String firstname, String lastname, String username, String password, String email) {
+	public User(int userid, String firstname, String lastname, String username, String password, String email) {
+		this.mUserID = userid;
 		this.mFirstname = firstname;
 		this.mLastname = lastname;
 		this.mUsername = username;

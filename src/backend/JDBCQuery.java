@@ -16,6 +16,7 @@ import org.eclipse.jdt.internal.compiler.ast.Statement;
 import databaseObjects.ClassMessage;
 import databaseObjects.Classroom;
 import databaseObjects.User;
+import databaseObjects.UserDocument;
 
 public class JDBCQuery {
 
@@ -179,8 +180,8 @@ public class JDBCQuery {
 			ps.setString(1, username);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return new User(result.getString("fname"), result.getString("lname"), result.getString("username"),
-						result.getString("password"), result.getString("email"));
+				return new User(result.getInt("userID"), result.getString("fname"), result.getString("lname"),
+						result.getString("username"), result.getString("password"), result.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -201,8 +202,8 @@ public class JDBCQuery {
 			ps.setInt(1, userID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return new User(result.getString("fname"), result.getString("lname"), result.getString("username"),
-						result.getString("password"), result.getString("email"));
+				return new User(userID, result.getString("fname"), result.getString("lname"),
+						result.getString("username"), result.getString("password"), result.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -368,7 +369,7 @@ public class JDBCQuery {
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return new Classroom(result.getString("classname"), result.getBoolean("private"));
+				return new Classroom(classID, result.getString("classname"), result.getBoolean("private"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -448,6 +449,9 @@ public class JDBCQuery {
 				out.write(buff);
 				out.close();
 				return file;
+
+				// have file now
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -482,7 +486,15 @@ public class JDBCQuery {
 	// Vector<UserDocument>
 
 	public void getUserDocuments(int userID) {
-		// TODO
+
+		Vector<Integer> docIDs = this.getUserDocuments2(userID);
+
+		Vector<UserDocument> userDocuments = new Vector<>();
+
+		for (Integer id : docIDs) {
+			// userDocuments.add(this.getDocumentFile(id));
+		}
+
 	}
 
 	// ENROLLMENT METHODS
@@ -599,6 +611,15 @@ public class JDBCQuery {
 	}
 
 	// MESSAGE METHODS
+
+	// TODO
+	// TODO
+	// TODO
+
+	public void addMessage(int classID, int userID, int level, String content) {
+		// TODO
+
+	}
 
 	/**
 	 * return vector of all messages posted in a class's discussion board
