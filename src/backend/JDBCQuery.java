@@ -1,8 +1,8 @@
 package backend;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import org.apache.tomcat.jni.File;
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
+import databaseObjects.Message;
 import databaseObjects.User;
 
 public class JDBCQuery {
@@ -51,7 +51,7 @@ public class JDBCQuery {
 
 	// Messages
 	private final static String getMessagesFromClass = "SELECT * FROM Messages WHERE classID=?";
-
+	private final static String getMessageFromID = "SELECT * FROM Messages WHERE messageID=?";
 	// INSERT statements
 
 	// Users
@@ -407,10 +407,10 @@ public class JDBCQuery {
 				// TODO
 				// need to verify how to retrieve longblob
 				Blob blob = result.getBlob("file");
-				File file = new File();
+				File file = new File("here");
 				InputStream in = blob.getBinaryStream();
-				OutputStream out = new FileOutputStream(file);
-				byte[] buff = blob.getBytes(1,(int)blob.length());
+				FileOutputStream out = FileOutputStream(file);
+				byte[] buff = blob.getBytes(1, (int) blob.length());
 				out.write(buff);
 				out.close();
 				return file;
@@ -450,7 +450,7 @@ public class JDBCQuery {
 	/**
 	 * return vector of userIDs associated with a classID
 	 */
-	public Vector<Integer> getUsersEnrolledInClass(int classID) {
+	private Vector<Integer> getUsersEnrolledInClass2(int classID) {
 
 		Vector<Integer> usersInClass = new Vector<Integer>();
 
@@ -468,6 +468,22 @@ public class JDBCQuery {
 			e.printStackTrace();
 		}
 		return null;
+
+	}
+
+	// Vector Users from classID
+
+	public Vector<User> getUsersEnrolledInClass(int classID) {
+
+		Vector<User> enrolledUsers = new Vector<>();
+
+		Vector<Integer> userIDs = this.getUsersEnrolledInClass2(classID);
+
+		for (Integer id : userIDs) {
+			enrolledUsers.add(this.getMessageFromID(id));
+		}
+
+		return enrolledUsers;
 
 	}
 
@@ -532,7 +548,7 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Vector<Integer> getMessagesFromClass(int classID) {
+	private Vector<Integer> getMessagesFromClass2(int classID) {
 
 		Vector<Integer> classMessages = new Vector<Integer>();
 
@@ -551,6 +567,43 @@ public class JDBCQuery {
 		}
 		return null;
 
+	}
+
+	public Message getMessageFromID(int messageID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getMessageFromID);
+			ps.setInt(1, messageID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				// int classid, int userid, int level, String content
+				return new Message(result.getInt("classID"), result.getInt("userID"), result.getInt("level"),
+						result.getString("content"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * returns vector of message classes
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public Vector<Message> getMessagesFromClass(int classID) {
+
+		Vector<Message> classMessages = new Vector<>();
+
+		Vector<Integer> messageIDs = this.getMessagesFromClass2(classID);
+
+		for (Integer id : messageIDs) {
+			classMessages.add(this.getMessageFromID(id));
+		}
+
+		return classMessages;
 	}
 
 	/**

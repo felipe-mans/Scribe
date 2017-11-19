@@ -24,7 +24,7 @@ CREATE TABLE Documents {
 	docID INTEGER PRIMARY KEY not null auto_increment,
     userID INTEGER not null,
     file LONGBLOB not null
-
+	
 	};
 	
 CREATE TABLE Enrollment {
