@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@include file="NavBarG.jsp"%>
+<%
+JDBCQuery jdbcq = new JDBCQuery();
+jdbcq.connect();
+request.getSession().setAttribute("currUser", jdbcq.getUserByUsername("Guest"));
+request.getSession().setAttribute("signedIn", false);
+jdbcq.stop();
+%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->

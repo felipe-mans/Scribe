@@ -7,7 +7,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Scribe</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Member.css">
-		<%User currUser = (User)request.getSession().getAttribute("currUser"); %>
 		<script>
 			var socket;
 			function connectToServer() {

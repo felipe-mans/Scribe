@@ -21,7 +21,8 @@
 			<div class="formContent" id="registerForm">
 				<form class="form" action="Welcome.jsp">
 					<h4>Sign up for an account</h4>
-					<input id="name" name="name" placeholder="Name" type="text" class="text"> <br>
+					<input id="fname" name="fname" placeholder="First Name" type="text" class="text"> <br>
+					<input id="lname" name="lname" placeholder="Last Name" type="text" class="text"> <br>
 					<input id="username" name="username" placeholder="Username" type="text" class="text"> <br>
 					<input id="email" name="email" placeholder="Email" type="text" class="text"> <br>
 					<input id="password" name="password" placeholder="Password" type="text" class="text"> <br><br>

@@ -26,16 +26,16 @@ public class LoginServlet extends HttpServlet {
 		//Error Checking
 		if (username == null){
 			request.setAttribute("error", "Error in RegisterServ: username para null");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
 			return;
 		}
 		else if (password == null){
 			request.setAttribute("error", "Error in RegisterServ: password para null");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
 			return;
 		} else if (username.equals("") || password.equals("")){
 			request.setAttribute("error", "Fields cannot be empty");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("welcome/login.jsp").forward(request, response);
 			return;
 		}
 		
@@ -46,20 +46,21 @@ public class LoginServlet extends HttpServlet {
 			if (jdbcq.validate(username, password)){
 				request.getSession().setAttribute("currUser", jdbcq.getUserByUsername(username));
 				jdbcq.stop();
+				request.getSession().setAttribute("signedIn", true);
 				response.sendRedirect("jsp/userpage.jsp?username="+username);
 			}
 			//incorrect password
 			else{
 				jdbcq.stop();
 				request.setAttribute("error", "Incorrect password");
-				request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+				request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
 			}
 		}
 		//invalid username
 		else{
 			jdbcq.stop();
 			request.setAttribute("error", "Incorrect username");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
 		}
 	}
 }

@@ -8,11 +8,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Scribe - Sign Up Today!</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Guest.css">
-		<%
-			JDBCQuery jdbcq = new JDBCQuery();
-			jdbcq.connect();
-			User currUser = jdbcq.getUserByUsername("Guest");
-		%>
 	</head>
 	<body>
 	
