@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
+import databaseObjects.Class;
 import databaseObjects.Message;
 import databaseObjects.User;
 
@@ -52,6 +53,7 @@ public class JDBCQuery {
 	// Messages
 	private final static String getMessagesFromClass = "SELECT * FROM Messages WHERE classID=?";
 	private final static String getMessageFromID = "SELECT * FROM Messages WHERE messageID=?";
+
 	// INSERT statements
 
 	// Users
@@ -318,6 +320,12 @@ public class JDBCQuery {
 
 	// CLASS METHODS
 
+	/**
+	 * Add new class to Classes
+	 * 
+	 * @param classname
+	 * @param isPrivate
+	 */
 	public void addClass(String classname, boolean isPrivate) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(addClass);
@@ -330,18 +338,39 @@ public class JDBCQuery {
 	}
 
 	/**
+	 * Does class exist?
+	 * 
+	 * @param classname
+	 * @return true if yes, else no
+	 */
+	public boolean doesClassExist(String classname) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(selectClassByClassname);
+			ps.setString(1, classname);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
 	 * Get classname using classID
 	 * 
 	 * @param classID
 	 * @return
 	 */
-	public String getClassFromID(int classID) {
+	public Class getClassFromID(int classID) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectClassByClassID);
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return result.getString("classname");
+				return new Class(result.getString("classname"), result.getBoolean("private"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -471,7 +500,12 @@ public class JDBCQuery {
 
 	}
 
-	// Vector Users from classID
+	/**
+	 * return Vector of Users from classID
+	 * 
+	 * @param classID
+	 * @return
+	 */
 
 	public Vector<User> getUsersEnrolledInClass(int classID) {
 
@@ -480,7 +514,7 @@ public class JDBCQuery {
 		Vector<Integer> userIDs = this.getUsersEnrolledInClass2(classID);
 
 		for (Integer id : userIDs) {
-			enrolledUsers.add(this.getMessageFromID(id));
+			enrolledUsers.add(this.getUserByUserID(id));
 		}
 
 		return enrolledUsers;
@@ -490,7 +524,7 @@ public class JDBCQuery {
 	/**
 	 * return vector of classIDs associated with userID
 	 */
-	public Vector<Integer> getUserEnrollments(int userID) {
+	private Vector<Integer> getUserEnrollments2(int userID) {
 
 		Vector<Integer> enrollment = new Vector<Integer>();
 
@@ -509,6 +543,19 @@ public class JDBCQuery {
 		}
 		return null;
 
+	}
+
+	public Vector<Class> getUserEnrollments(int userID) {
+
+		Vector<Class> userClasses = new Vector<>();
+
+		Vector<Integer> classIDs = this.getUserEnrollments2(userID);
+
+		for (Integer id : classIDs) {
+			userClasses.add(this.getClassFromID(id));
+		}
+
+		return userClasses;
 	}
 
 	// UPLOAD METHODS

@@ -15,11 +15,11 @@ public class Message {
 
 	// GETTERS
 
-	public int getClass() {
+	public int getClassID() {
 		return this.mClassID;
 	}
 
-	public int getUser() {
+	public int getUserID() {
 		return this.mUserID;
 	}
 
@@ -27,7 +27,7 @@ public class Message {
 		return this.mLevel;
 	}
 
-	public string getContent() {
+	public String getContent() {
 		return this.mContent;
 	}
 
