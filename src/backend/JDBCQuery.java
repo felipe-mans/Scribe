@@ -733,6 +733,25 @@ public class JDBCQuery {
 
 	}
 
+	/**
+	 * return vector of userDocuments given classID
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public Vector<UserDocument> getClassUploads(int classID) {
+
+		Vector<UserDocument> classDocuments = new Vector<>();
+
+		Vector<Integer> docIDs = this.getClassUploads2(classID);
+
+		for (Integer id : docIDs) {
+			classDocuments.add(this.getDocumentFromID(id));
+		}
+
+		return classDocuments;
+	}
+
 	// MESSAGE METHODS
 
 	public void addMessage(int classID, int userID, int level, String content) {
