@@ -480,6 +480,8 @@ public class JDBCQuery {
 		}
 	}
 
+	// TODO
+
 	/**
 	 * Returns the LONGBLOB file associated with a docID
 	 * 
@@ -519,6 +521,8 @@ public class JDBCQuery {
 		return null;
 	}
 
+	// TODO
+
 	/**
 	 * return vector off all docIDs associated with a given userID
 	 */
@@ -542,6 +546,8 @@ public class JDBCQuery {
 		return null;
 
 	}
+
+	// TODO
 
 	/**
 	 * return vector of UserDocuments using userID
