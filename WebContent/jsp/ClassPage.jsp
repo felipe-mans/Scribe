@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-boolean signedIn = (boolean)request.getSession().getAttribute("signedIn");
-User currUser = (User)request.getSession().getAttribute("currUser");
-if(signedIn) {%>
+/* boolean signedIn = (boolean)request.getSession().getAttribute("signedIn");
+User currUser = (User)request.getSession().getAttribute("currUser"); */
+if(true) {%>
 	<%@include file="NavBarM.jsp"%>
 <%} else {%>
 	<%@include file="NavBarG.jsp"%>
@@ -23,6 +23,11 @@ if(signedIn) {%>
 				<h2>Created by: <!-- creator --></h2>
 			</div>
 		</div>
+		
+		<%
+			if(/*class is private and user is not in the class*/ true) { %>
+				<button id="requestButton">Request to Join Class</button>
+		<%}%>
 		
 		<div id="members" class="members">
 			<h3>Members</h3><hr />

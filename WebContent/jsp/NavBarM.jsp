@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Member.css">
 		<script>
 			var socket;
+			var requestButton = document.getElementById("requestButton");
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
 				socket.onopen = function(event) {}
@@ -20,6 +21,9 @@
 			function sendMessage() {
 				socket.send(document.discussionBoard.message.value);
 				return false;
+			}
+			requestButton.onclick = function() {
+				socket.send(" has requested to join this group! <button class=\"button\" id=\"acceptButton\">Accept</button>");
 			}
 		</script>
 
