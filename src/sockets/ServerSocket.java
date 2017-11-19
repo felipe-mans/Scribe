@@ -1,4 +1,4 @@
-package Networking;
+package sockets;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -10,15 +10,14 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-//value must match what you have in html file
 @ServerEndpoint(value = "/discussion")
-public class ServerSocket
-{	
+public class ServerSocket {
+
 	private static Vector<Session> sessionVector = new Vector<Session>();
 	
 	@OnOpen
 	public void open(Session session) {
-		System.out.println("Client Connected!");
+		System.out.println("Connection made!");
 		sessionVector.add(session);
 	}
 	
@@ -26,10 +25,10 @@ public class ServerSocket
 	public void onMessage(String message, Session session) {
 		System.out.println(message);
 		try {
-			for(Session s: sessionVector) {
+			for(Session s : sessionVector) {
 				s.getBasicRemote().sendText(message);
 			}
-		} catch(IOException ioe) {
+		} catch (IOException ioe) {
 			System.out.println("ioe: " + ioe.getMessage());
 			close(session);
 		}
@@ -37,12 +36,12 @@ public class ServerSocket
 	
 	@OnClose
 	public void close(Session session) {
-		System.out.println("Disconnected");
+		System.out.println("Disconnecting!");
 		sessionVector.remove(session);
 	}
 	
 	@OnError
-	public void onError(Throwable error) {
-		System.out.println("Error");
+	public void error(Throwable error) {
+		System.out.println("Error!");
 	}
 }

@@ -8,25 +8,22 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Member.css">
 		<script>
 			var socket;
-			function connectToServer()
-			{
+			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
 				socket.onopen = function(event) {}
-				socket.onmessage = function(event)
-				{
+				socket.onmessage = function(event) {
 					document.getElementById("discussion").innerHTML += event.data + "<br />";
 				}
-				socket.onclose = function(event){}
+				socket.onclose = function(event) {}
 			}
-			
-			function sendMessage()
-			{
-				socket.send("document.chatform.message.value);
+			function sendMessage() {
+				socket.send(document.discussionBoard.message.value);
 				return false;
 			}
 		</script>
+
 	</head>
-	<body>
+	<body onload="connectToServer()">
 	
 	<ul id="navBar">
 		<li id="navBarRight"><a href="Welcome.jsp">Log out</a></li>
