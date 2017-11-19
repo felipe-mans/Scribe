@@ -1,11 +1,11 @@
 package databaseObjects;
 
-public class Class {
+public class Classroom {
 
 	private String mClassname;
 	boolean mIsPrivate;
 
-	public Class(String classname, boolean isPrivate) {
+	public Classroom(String classname, boolean isPrivate) {
 		this.mClassname = classname;
 		this.mIsPrivate = isPrivate;
 	}

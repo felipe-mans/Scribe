@@ -13,7 +13,7 @@ import java.util.Vector;
 
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
-import databaseObjects.Class;
+import databaseObjects.Classroom;
 import databaseObjects.Message;
 import databaseObjects.User;
 
@@ -364,13 +364,13 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Class getClassFromID(int classID) {
+	public Classroom getClassFromID(int classID) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectClassByClassID);
 			ps.setInt(1, classID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				return new Class(result.getString("classname"), result.getBoolean("private"));
+				return new Classroom(result.getString("classname"), result.getBoolean("private"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -545,9 +545,9 @@ public class JDBCQuery {
 
 	}
 
-	public Vector<Class> getUserEnrollments(int userID) {
+	public Vector<Classroom> getUserEnrollments(int userID) {
 
-		Vector<Class> userClasses = new Vector<>();
+		Vector<Classroom> userClasses = new Vector<>();
 
 		Vector<Integer> classIDs = this.getUserEnrollments2(userID);
 
