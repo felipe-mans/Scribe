@@ -23,6 +23,7 @@ CREATE TABLE Documents {
 
 	docID INTEGER PRIMARY KEY not null auto_increment,
     userID INTEGER not null,
+    documentname VARCHAR(255) not null,
     file LONGBLOB not null
 	
 	};

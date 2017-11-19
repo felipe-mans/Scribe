@@ -1,8 +1,8 @@
 package backend;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +13,8 @@ import java.util.Vector;
 
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
+import databaseObjects.ClassMessage;
 import databaseObjects.Classroom;
-import databaseObjects.Message;
 import databaseObjects.User;
 
 public class JDBCQuery {
@@ -41,7 +41,7 @@ public class JDBCQuery {
 
 	// Documents
 	private final static String getUserDocuments = "SELECT * FROM Documents WHERE userID=?";
-	private final static String getDocumentFile = "SELECT * FROM Documents WHERE docID=?";
+	private final static String getDocumentByDocumentID = "SELECT * FROM Documents WHERE docID=?";
 
 	// Enrollments
 	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
@@ -109,10 +109,8 @@ public class JDBCQuery {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/Scribe?user=root&password=root&useSSL=false");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -419,7 +417,13 @@ public class JDBCQuery {
 		}
 	}
 
+	// TODO
+
 	// DOCUMENT METHODS
+
+	// GetDocumentFromID
+
+	// TODO
 
 	/**
 	 * Returns the LONGBLOB file associated with a docID
@@ -427,9 +431,10 @@ public class JDBCQuery {
 	 * @param docID
 	 * @return
 	 */
+
 	public File getDocumentFile(int docID) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(getDocumentFile);
+			PreparedStatement ps = conn.prepareStatement(getDocumentByDocumentID);
 			ps.setInt(1, docID);
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
@@ -438,7 +443,7 @@ public class JDBCQuery {
 				Blob blob = result.getBlob("file");
 				File file = new File("here");
 				InputStream in = blob.getBinaryStream();
-				FileOutputStream out = FileOutputStream(file);
+				OutputStream out = FileOutputStream(file);
 				byte[] buff = blob.getBytes(1, (int) blob.length());
 				out.write(buff);
 				out.close();
@@ -453,7 +458,7 @@ public class JDBCQuery {
 	/**
 	 * return vector off all docIDs associated with a given userID
 	 */
-	public Vector<Integer> getUserDocuments(int userID) {
+	private Vector<Integer> getUserDocuments2(int userID) {
 
 		Vector<Integer> userDocuments = new Vector<Integer>();
 
@@ -472,6 +477,12 @@ public class JDBCQuery {
 		}
 		return null;
 
+	}
+
+	// Vector<UserDocument>
+
+	public void getUserDocuments(int userID) {
+		// TODO
 	}
 
 	// ENROLLMENT METHODS
@@ -566,7 +577,7 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Vector<Integer> getClassUploads(int classID) {
+	public Vector<Integer> getClassUploads2(int classID) {
 
 		Vector<Integer> classDocuments = new Vector<Integer>();
 
@@ -616,7 +627,7 @@ public class JDBCQuery {
 
 	}
 
-	public Message getMessageFromID(int messageID) {
+	public ClassMessage getMessageFromID(int messageID) {
 
 		try {
 			PreparedStatement ps = conn.prepareStatement(getMessageFromID);
@@ -624,7 +635,7 @@ public class JDBCQuery {
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
 				// int classid, int userid, int level, String content
-				return new Message(result.getInt("classID"), result.getInt("userID"), result.getInt("level"),
+				return new ClassMessage(result.getInt("classID"), result.getInt("userID"), result.getInt("level"),
 						result.getString("content"));
 			}
 
@@ -640,9 +651,9 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Vector<Message> getMessagesFromClass(int classID) {
+	public Vector<ClassMessage> getMessagesFromClass(int classID) {
 
-		Vector<Message> classMessages = new Vector<>();
+		Vector<ClassMessage> classMessages = new Vector<>();
 
 		Vector<Integer> messageIDs = this.getMessagesFromClass2(classID);
 
