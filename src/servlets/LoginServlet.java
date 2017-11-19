@@ -43,7 +43,8 @@ public class LoginServlet extends HttpServlet {
 		jdbcq.connect();
 		if (jdbcq.doesUserExist(username)){
 			//correct password
-			if (jdbcq.isCorrectPassword(username, password)){
+			if (jdbcq.validate(username, password)){
+				request.getSession().setAttribute("currUser", jdbcq.getUserByUsername(username));
 				jdbcq.stop();
 				response.sendRedirect("jsp/userpage.jsp?username="+username);
 			}
