@@ -1,12 +1,15 @@
 package databaseObjects;
 
 public class ClassMessage {
+
+	private int mMessageID;
 	private int mClassID;
 	private int mUserID;
 	private int mLevel;
 	private String mContent;
 
-	public ClassMessage(int classid, int userid, int level, String content) {
+	public ClassMessage(int messageid, int classid, int userid, int level, String content) {
+		this.mMessageID = messageid;
 		this.mClassID = classid;
 		this.mUserID = userid;
 		this.mLevel = level;
@@ -14,6 +17,10 @@ public class ClassMessage {
 	}
 
 	// GETTERS
+
+	public int getMessageID() {
+		return this.mClassID;
+	}
 
 	public int getClassID() {
 		return this.mClassID;

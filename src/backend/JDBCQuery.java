@@ -64,13 +64,16 @@ public class JDBCQuery {
 	private final static String addClass = "INSERT INTO Classes(classname, private) VALUES(?,?)";
 
 	// Documents
-	private final static String addDocument = "INSERT INTO Documents(userID, file) VALUES(?,?)";
+	private final static String addDocument = "INSERT INTO Documents(userID, documentname, file) VALUES(?, ?, ?)";
 
 	// Enrollments
-	private final static String addEnrollment = "INSERT INTO Enrollments(classID, userID) VALUES(?,?)";
+	private final static String addEnrollment = "INSERT INTO Enrollments(classID, userID) VALUES(?, ?)";
 
 	// Uploads
-	private final static String addUpload = "INSERT INTO Uploads(classID, docID) VALUES(?,?)";
+	private final static String addUpload = "INSERT INTO Uploads(classID, docID) VALUES(?, ?)";
+
+	// Messages
+	private final static String addMessage = "INSERT INTO Messages(classID, userID, level, content) VALUES(?, ?, ?, ?)";
 
 	// UPDATE statements
 
@@ -91,6 +94,7 @@ public class JDBCQuery {
 	private final static String updateClassPrivacy = "UPDATE Classes SET private=? WHERE classID=?";
 
 	// Messages
+	private final static String updateMessage = "UPDATE Messages SET content=? WHERE messageID=?";
 
 	// Database credentials
 	static final String USER = "root";
@@ -418,9 +422,34 @@ public class JDBCQuery {
 		}
 	}
 
-	// TODO
+	public void updateClassname(int classID, String newContent) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateClassname);
+			ps.setString(1, newContent);
+			ps.setInt(2, classID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// DOCUMENT METHODS
+
+	public void addDocument(int userID, String documentname, File file) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(addDocument);
+			ps.setInt(1, userID);
+			ps.setString(2, documentname);
+
+			// TODO
+			// convert file to BLOB
+
+			ps.setBlob(3, file);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// GetDocumentFromID
 
@@ -485,6 +514,13 @@ public class JDBCQuery {
 
 	// Vector<UserDocument>
 
+	// TODO
+
+	/**
+	 * return vector of UserDocuments using userID
+	 * 
+	 * @param userID
+	 */
 	public void getUserDocuments(int userID) {
 
 		Vector<Integer> docIDs = this.getUserDocuments2(userID);
@@ -498,6 +534,23 @@ public class JDBCQuery {
 	}
 
 	// ENROLLMENT METHODS
+
+	/**
+	 * add enrollment
+	 * 
+	 * @param classID
+	 * @param userID
+	 */
+	public void addEnrollment(int classID, int userID) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(addEnrollment);
+			ps.setInt(1, classID);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * return vector of userIDs associated with a classID
@@ -568,6 +621,12 @@ public class JDBCQuery {
 
 	}
 
+	/**
+	 * return vector of classes associated with a userID
+	 * 
+	 * @param userID
+	 * @return
+	 */
 	public Vector<Classroom> getUserEnrollments(int userID) {
 
 		Vector<Classroom> userClasses = new Vector<>();
@@ -582,6 +641,23 @@ public class JDBCQuery {
 	}
 
 	// UPLOAD METHODS
+
+	/**
+	 * add an upload to table
+	 * 
+	 * @param classID
+	 * @param docID
+	 */
+	public void addUpload(int classID, int docID) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(addUpload);
+			ps.setInt(1, classID);
+			ps.setInt(2, docID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * return vector of all docIDs associated with a given classID
@@ -612,12 +688,17 @@ public class JDBCQuery {
 
 	// MESSAGE METHODS
 
-	// TODO
-	// TODO
-	// TODO
-
 	public void addMessage(int classID, int userID, int level, String content) {
-		// TODO
+		try {
+			PreparedStatement ps = conn.prepareStatement(addMessage);
+			ps.setInt(1, classID);
+			ps.setInt(2, userID);
+			ps.setInt(3, level);
+			ps.setString(4, content);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -656,8 +737,8 @@ public class JDBCQuery {
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
 				// int classid, int userid, int level, String content
-				return new ClassMessage(result.getInt("classID"), result.getInt("userID"), result.getInt("level"),
-						result.getString("content"));
+				return new ClassMessage(messageID, result.getInt("classID"), result.getInt("userID"),
+						result.getInt("level"), result.getString("content"));
 			}
 
 		} catch (SQLException e) {
@@ -693,8 +774,14 @@ public class JDBCQuery {
 	 */
 	public void updateMessage(int messageID, String newContent) {
 
-		// TODO
-		return;
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateMessage);
+			ps.setString(1, newContent);
+			ps.setInt(2, messageID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
