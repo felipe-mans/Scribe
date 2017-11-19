@@ -57,3 +57,6 @@ CREATE TABLE Messages {
 
 INSERT INTO Users (fname, lname, username, password, email)
 VALUES ('Vincent','Rodriguez', 'vincentr', 'sike', 'vincentr@usc.edu');
+
+INSERT INTO Users (fname, lname, username, password, email)
+VALUES ('Guest','', 'Guest', '', '');
