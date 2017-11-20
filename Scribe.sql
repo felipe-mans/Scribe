@@ -54,6 +54,16 @@ CREATE TABLE Messages (
 
 );
 
+CREATE TABLE Requests (
+
+	requestID INTEGER PRIMARY KEY not null auto_increment,
+	userID INTEGER not null,
+	classID INTEGER not null,
+	active BOOLEAN not null
+
+);
+
+
 
 INSERT INTO Users (fname, lname, username, password, email)
 VALUES ('Vincent','Rodriguez', 'vincentr', 'sike', 'vincentr@usc.edu');

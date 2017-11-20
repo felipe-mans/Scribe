@@ -60,6 +60,9 @@ public class JDBCQuery {
 	private final static String getMessagesFromClass = "SELECT * FROM Messages WHERE classID=?";
 	private final static String getMessageFromID = "SELECT * FROM Messages WHERE messageID=?";
 
+	// Requests
+	private final static String getUsersWithRequests = "SELECT * FROM Requests WHERE classID=? AND active=true";
+
 	// INSERT statements
 
 	// Users
@@ -79,6 +82,9 @@ public class JDBCQuery {
 
 	// Messages
 	private final static String addMessage = "INSERT INTO Messages(classID, userID, level, content) VALUES(?, ?, ?, ?)";
+
+	// Requests
+	private final static String addRequest = "INSERT INTO Requests(userID, classID, active) VALUES(?, ?, true)";
 
 	// UPDATE statements
 
@@ -100,6 +106,9 @@ public class JDBCQuery {
 
 	// Messages
 	private final static String updateMessage = "UPDATE Messages SET content=? WHERE messageID=?";
+
+	// Requests
+	private final static String updateRequest = "UPDATE Requests SET active=false WHERE classID=? AND userID=?";
 
 	// Database credentials
 	static final String USER = "root";
@@ -502,7 +511,7 @@ public class JDBCQuery {
 
 				fileData = blob.getBytes(1, (int) blob.length());
 
-				File file = new File("Downloads" + result.getString("documentname"));
+				File file = new File("~/Downloads/" + result.getString("documentname"));
 
 				FileOutputStream out = new FileOutputStream(file);
 				out.write(fileData);
@@ -850,6 +859,87 @@ public class JDBCQuery {
 			PreparedStatement ps = conn.prepareStatement(updateMessage);
 			ps.setString(1, newContent);
 			ps.setInt(2, messageID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// REQUESTS METHODS
+
+	/**
+	 * Adds a request
+	 * 
+	 * @param userID
+	 * @param classID
+	 */
+	public void addRequest(int userID, int classID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(addRequest);
+			ps.setInt(1, userID);
+			ps.setInt(2, classID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * return vector of userIDs requesting access to classID s
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	private Vector<Integer> getUsersWithRequests2(int classID) {
+
+		Vector<Integer> requests = new Vector<Integer>();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUsersWithRequests);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				requests.add(result.getInt("userID"));
+			}
+
+			return requests;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Vector<User> getUsersWithRequests(int classID) {
+
+		Vector<User> requestingUsers = new Vector<>();
+
+		Vector<Integer> userIDs = this.getUsersWithRequests2(classID);
+
+		for (Integer id : userIDs) {
+			requestingUsers.add(this.getUserByUserID(id));
+		}
+
+		return requestingUsers;
+
+	}
+
+	// request UPDATE methods
+
+	/**
+	 * switches request active status to false
+	 * 
+	 * @param classID
+	 * @param userID
+	 */
+	public void updateRequest(int classID, int userID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateRequest);
+			ps.setInt(1, classID);
+			ps.setInt(2, userID);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
