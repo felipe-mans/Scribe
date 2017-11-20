@@ -13,7 +13,7 @@
 	<body>
 		<div class="formBackground" id="formBox">	
 			<div class="formContent" id="loginForm">
-				<form class="form" action="${pageContext.request.contextPath}LoginServlet">
+				<form class="form" action="${pageContext.request.contextPath}/LoginServlet">
 					<h4>Login to your account</h4> <br>
 					<input id="username" name="username" placeholder="Username" type="text" class="text"> <br>
 					<input id="password" name="password" placeholder="Password" type="password" class="text"> <br><br>
