@@ -13,13 +13,13 @@ jdbcq.stop();
 <html>
 	<body> -->
 		<h1>Welcome to Scribe!</h1>
-	<h3>Sign up today to:</h3>
-	<ul>
-		<li>Join class groups</li>
-		<li>Create class groups</li>
-		<li>Upload/Share class resources</li>
-		<li>Keep your classes organized</li>
-		<li>Improve your grades!</li>
-	</ul>
+		<h3>Sign up today to:</h3>
+		<ul>
+			<li>Join class groups</li>
+			<li>Create class groups</li>
+			<li>Upload/Share class resources</li>
+			<li>Keep your classes organized</li>
+			<li>Improve your grades!</li>
+		</ul>
 	</body>
 </html>
