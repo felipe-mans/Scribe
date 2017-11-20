@@ -17,7 +17,7 @@ if(true) {%>
 			<div class = "logo">
 			</div>
 			<div class = "welcome">
-				<h1>Welcome to (INSERT CLASS NAME)</h1>
+				<h1>Welcome to <%= request.getParameter("title")%></h1>
 			</div>
 			<div class = "creator">
 				<h2>Created by: <!-- creator --></h2>

@@ -16,22 +16,22 @@ h1, h2, h3, h4 {
 
 .left {
 	float: left;
-	width: 30%;
+	width: 45%;
 }
 
 .logOut {
 	float: right;
-	width: 10%;
+	width: 15%;
 }
 
 .homepage {
 	float: right;
-	width: 10%;
+	width: 15%;
 }
 
 .addClass {
 	float: right;
-	width: 10%;
+	width: 15%;
 }
 
 
