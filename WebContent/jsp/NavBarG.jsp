@@ -11,13 +11,24 @@
 	</head>
 	<body>
 	
+	<div class="navBarDiv">
 	<ul id="navBar">
+		<div class="formDiv">
+		<li id="search">
+		<form id="searchBar" action="Search.jsp">
+		<input type="text" name="search" placeholder="Search..." id="searchBox">
+		</form>
+		</li>
+		</div>
+		<div class="signUpButton">
 		<li id="navBarOption"><a id="signUp">Sign Up</a></li>
-		<li id="navBarOption"><a id="search">Search</a></li>
+		</div>
 	</ul>
+	</div>
 	<div class="formBackground" id="formBox">
 		<div class="formContent" id="registerForm">
 			<form class="form" action="Welcome.jsp">
+				<h4>Sign up for an account</h4> <br>
 				<input id="name" name="name" placeholder="Name" type="text" class="text"> <br>
 				<input id="username" name="username" placeholder="Username" type="text" class="text"> <br>
 				<input id="email" name="email" placeholder="Email" type="text" class="text"> <br>
@@ -28,13 +39,19 @@
 	</div>
 	
 	<script>
-	var formBox = document.getElementbyId("formBox");
-	var register = document.getElementById('registerForm');
-	
 	var signUp = document.getElementById("signUp");
+	var formBox = document.getElementById("formBox");
+	var form = document.getElementById("registerForm");
 	
 	signUp.onclick = function() {
 		formBox.style.display = "block";
-		register.style.display = "block";
+		form.style.display = "block";
+	}
+	
+	window.onclick = function(event) {
+	    if (event.target == formBox) {
+	        formBox.style.display = "none";
+	        form.style.display = "none";
+	    }
 	}
 	</script>

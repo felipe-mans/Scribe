@@ -5,19 +5,60 @@ h1, h2, h3, h4 {
 	length: 100%;
 }
 
+.navBarDiv {
+	width: 100%;
+}
+
+.right {
+	float: right;
+	width: 40%;
+}
+
+.left {
+	float: left;
+	width: 30%;
+}
+
+.logOut {
+	float: right;
+	width: 10%;
+}
+
+.homepage {
+	float: right;
+	width: 10%;
+}
+
+.addClass {
+	float: right;
+	width: 10%;
+}
+
+
+#searchBox {
+    width: 50%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #333;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 20px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    color: white;
+}
+
+#searchBox:focus {
+    width: 75%;
+}
+
 #navBar {
 	list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
-}
-#navBarRight {
-	float: right;
-}
-
-#navBarLeft {
-	float: left;
 }
 
 #navBarRight a, #navBarLeft a {

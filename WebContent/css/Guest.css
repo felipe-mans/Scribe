@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+h1 {
+	text-align: center;
+}
+
 .formBackground {
 	display: none;
     position: fixed; 
@@ -26,7 +30,7 @@
 }
 
 #enter {
-	width: 20%;
+	width: 30%;
 }
 
 .form {
@@ -41,9 +45,7 @@
     overflow: hidden;
     background-color: #333;
 }
-#navBarOption {
-	float:right;
-}
+
 
 #navBarOption a {
 	display: block;
@@ -55,4 +57,37 @@
 
 #navBarOption a:hover {
 	background-color: #111;
+}
+
+.navBarDiv {
+	width: 100%;
+}
+
+.formDiv {
+	float: left;
+	margin-left: 1%;
+	width: 30%;	
+}
+
+.signUpButton {
+	float:right;
+	width: 10%;
+}
+
+#searchBox {
+    width: 50%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #333;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 20px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    color: white;
+}
+
+#searchBox:focus {
+    width: 75%;
 }

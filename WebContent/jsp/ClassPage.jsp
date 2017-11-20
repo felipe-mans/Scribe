@@ -61,7 +61,15 @@ if(true) {%>
 		</div>
 	
 		<div id="resources" class="resources">
-			<h3>Resources</h3><hr />
+			<div class="title">
+			<h3>Resources</h3>
+			</div>
+			<div class="resourceButton">
+			<form action="addResource()">
+			<input type="file" id="fileUpload" name="fileUpload" value="Upload">
+			</form>
+			</div>
+			<hr />
 			<ul>
 			<li>This is a test</li>
 			</ul>

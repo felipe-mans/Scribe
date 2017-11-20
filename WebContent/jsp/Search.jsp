@@ -12,8 +12,9 @@ if(signedIn) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Search.css">
 		<div class = "searchTitle">
-			Search Results for <!-- search -->.
+			<h1>Search Results for <%= request.getParameter("search")%> </h1>
 		</div>
 		<div class = "searchResults">
 		</div>

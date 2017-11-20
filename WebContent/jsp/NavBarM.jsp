@@ -30,13 +30,28 @@
 	</head>
 	<body onload="connectToServer()">
 	
+	<div class="navBarDiv">
 	<ul id="navBar">
-		<li id="navBarRight"><a href="Welcome.jsp">Log out</a></li>
-		<li id="navBarRight"><a id="search">Search</a></li>
-		
-		<li id="navBarLeft"><a href="MemberPage.jsp">S</a></li>
-		<li id="navBarLeft"><a id="addClass">New Class</a></li>
+		<div class="right">
+			<div class="logOut">
+			<li id="navBarRight"><a href="Welcome.jsp">Log out</a></li>
+			</div>
+			<div class="homepage">
+			<li id="navBarLeft"><a href="MemberPage.jsp">Scribe</a></li>
+			</div>
+			<div class="addClass">
+			<li id="navBarLeft"><a id="addClass">New Class</a></li>
+			</div>
+		</div>
+		<div class="left">
+			<li id="search">
+			<form id="searchBar" action="Search.jsp">
+			<input type="text" name="search" placeholder="Search..." id="searchBox">
+			</form>
+			</li>
+		</div>
 	</ul>
+	</div>
 	<div class="formBackground" id="formBox">
 		<div class="formContent" id="newClassForm">
 			<form class="form" id="addClassform" action="MemberPage.jsp">
