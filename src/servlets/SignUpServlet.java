@@ -23,31 +23,31 @@ public class SignUpServlet extends HttpServlet {
 		//Error Checking
 		if (fname == null){
 			request.setAttribute("error", "Error in RegisterServ: name para null");
-			request.getRequestDispatcher("jsp/.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		else if (lname == null){
 			request.setAttribute("error", "Error in RegisterServ: username para null");
-			request.getRequestDispatcher("jsp/.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		else if (username == null){
 			request.setAttribute("error", "Error in RegisterServ: username para null");
-			request.getRequestDispatcher("jsp/.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		else if (email == null){
 			request.setAttribute("error", "Error in RegisterServ: email para null");
-			request.getRequestDispatcher("jsp/.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		else if (password == null){
 			request.setAttribute("error", "Error in RegisterServ: password para null");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		} else if (fname.equals("") || lname.equals("") || username.equals("") || email.equals("") || password.equals("") ){
 			request.setAttribute("error", "Fields cannot be empty");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		
@@ -56,7 +56,7 @@ public class SignUpServlet extends HttpServlet {
 		if (jdbcq.doesUserExist(username)){
 			jdbcq.stop();
 			request.setAttribute("error", "User already exists");
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 		}
 		//invalid username
 		else{
@@ -64,7 +64,7 @@ public class SignUpServlet extends HttpServlet {
 			request.getSession().setAttribute("currUser", jdbcq.getUserByUsername(username));
 			jdbcq.stop();
 			request.getSession().setAttribute("signedIn", true);
-			response.sendRedirect("jsp/userpage.jsp?username="+username);
+			response.sendRedirect("jsp/MemberPage.jsp");
 		}
 	}
 }

@@ -24,11 +24,11 @@ public class ClassCreateServlet extends HttpServlet{
 		
 		if (classname == null){
 			request.setAttribute("error", "Error in ClassCreateServ: classname para null");
-			request.getRequestDispatcher("jsp/memberpage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/MemberPage.jsp").forward(request, response);
 			return;
 		} else if (classname.equals("")){
 			request.setAttribute("error", "Field cannot be empty");
-			request.getRequestDispatcher("jsp/memberpage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/MemberPage.jsp").forward(request, response);
 			return;
 		}
 		
@@ -37,7 +37,7 @@ public class ClassCreateServlet extends HttpServlet{
 		if(jdbcq.doesClassExist(classname)){
 			jdbcq.stop();
 			request.setAttribute("error", "Class already exists");
-			request.getRequestDispatcher("jsp/memberpage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/MemberPage.jsp").forward(request, response);
 		}
 		else{
 			jdbcq.addClass(classname, isPrivate);
