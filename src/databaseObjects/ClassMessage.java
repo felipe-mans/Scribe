@@ -19,7 +19,7 @@ public class ClassMessage {
 	// GETTERS
 
 	public int getMessageID() {
-		return this.mClassID;
+		return this.mMessageID;
 	}
 
 	public int getClassID() {

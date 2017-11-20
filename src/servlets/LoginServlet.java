@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import backend.JDBCQuery;
 
-
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,16 +25,16 @@ public class LoginServlet extends HttpServlet {
 		//Error Checking
 		if (username == null){
 			request.setAttribute("error", "Error in RegisterServ: username para null");
-			request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		else if (password == null){
 			request.setAttribute("error", "Error in RegisterServ: password para null");
-			request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		} else if (username.equals("") || password.equals("")){
 			request.setAttribute("error", "Fields cannot be empty");
-			request.getRequestDispatcher("welcome/login.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			return;
 		}
 		
@@ -47,20 +46,20 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("currUser", jdbcq.getUserByUsername(username));
 				jdbcq.stop();
 				request.getSession().setAttribute("signedIn", true);
-				response.sendRedirect("jsp/userpage.jsp?username="+username);
+				response.sendRedirect("jsp/MemberPage.jsp");
 			}
 			//incorrect password
 			else{
 				jdbcq.stop();
 				request.setAttribute("error", "Incorrect password");
-				request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
+				request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			}
 		}
 		//invalid username
 		else{
 			jdbcq.stop();
 			request.setAttribute("error", "Incorrect username");
-			request.getRequestDispatcher("jsp/welcome.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 		}
 	}
 }

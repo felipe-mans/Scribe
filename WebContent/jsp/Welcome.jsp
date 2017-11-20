@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,7 +13,7 @@
 	<body>
 		<div class="formBackground" id="formBox">	
 			<div class="formContent" id="loginForm">
-				<form class="form" action="MemberPage.jsp">
+				<form class="form" action="${pageContext.request.contextPath}/src/servlets/LoginServlet.java">
 					<h4>Login to your account</h4> <br>
 					<input id="username" name="username" placeholder="Username" type="text" class="text"> <br>
 					<input id="password" name="password" placeholder="Password" type="text" class="text"> <br><br>
@@ -19,7 +21,7 @@
 				</form>
 			</div>
 			<div class="formContent" id="registerForm">
-				<form class="form" action="Welcome.jsp">
+				<form class="form" action="${pageContext.request.contextPath}/src/servlets/SignUpServlet.java">
 					<h4>Sign up for an account</h4>
 					<input id="fname" name="fname" placeholder="First Name" type="text" class="text"> <br>
 					<input id="lname" name="lname" placeholder="Last Name" type="text" class="text"> <br>

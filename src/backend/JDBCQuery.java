@@ -1,8 +1,10 @@
 package backend;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
+import javax.servlet.http.Part;
 
 import org.eclipse.jdt.internal.compiler.ast.Statement;
 
@@ -47,6 +51,7 @@ public class JDBCQuery {
 	// Enrollments
 	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
 	private final static String getUserEnrollments = "SELECT * FROM Enrollments WHERE userID=?";
+	private final static String getUserInClass = "SELECT * FROM Enrollments WHERE classID=? AND userID=?";
 
 	// Uploads
 	private final static String getClassUploads = "SELECT * FROM Uploads WHERE classID=?";
@@ -54,6 +59,9 @@ public class JDBCQuery {
 	// Messages
 	private final static String getMessagesFromClass = "SELECT * FROM Messages WHERE classID=?";
 	private final static String getMessageFromID = "SELECT * FROM Messages WHERE messageID=?";
+
+	// Requests
+	private final static String getUsersWithRequests = "SELECT * FROM Requests WHERE classID=? AND active=true";
 
 	// INSERT statements
 
@@ -75,6 +83,9 @@ public class JDBCQuery {
 	// Messages
 	private final static String addMessage = "INSERT INTO Messages(classID, userID, level, content) VALUES(?, ?, ?, ?)";
 
+	// Requests
+	private final static String addRequest = "INSERT INTO Requests(userID, classID, active) VALUES(?, ?, true)";
+
 	// UPDATE statements
 
 	// Users
@@ -95,6 +106,9 @@ public class JDBCQuery {
 
 	// Messages
 	private final static String updateMessage = "UPDATE Messages SET content=? WHERE messageID=?";
+
+	// Requests
+	private final static String updateRequest = "UPDATE Requests SET active=false WHERE classID=? AND userID=?";
 
 	// Database credentials
 	static final String USER = "root";
@@ -382,6 +396,29 @@ public class JDBCQuery {
 	}
 
 	/**
+	 * returns Classroom object from clasname
+	 * 
+	 * @param classname
+	 * @return
+	 */
+	public Classroom getClassFromClassname(String classname) {
+		try {
+			PreparedStatement ps = conn.prepareStatement(selectClassByClassname);
+			ps.setString(1, classname);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return new Classroom(result.getInt("classID"), result.getString("classname"),
+						result.getBoolean("private"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
 	 * Return whether class is private or not
 	 * 
 	 * @param classID
@@ -435,23 +472,22 @@ public class JDBCQuery {
 
 	// DOCUMENT METHODS
 
-	public void addDocument(int userID, String documentname, File file) {
+	public void addDocument(int userID, String documentname, Part filePart) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(addDocument);
 			ps.setInt(1, userID);
 			ps.setString(2, documentname);
 
-			// TODO
-			// convert file to BLOB
+			InputStream inputstream = filePart.getInputStream();
+			ps.setBinaryStream(3, inputstream, (int) filePart.getSize());
 
-			ps.setBlob(3, file);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-
-	// GetDocumentFromID
 
 	// TODO
 
@@ -461,32 +497,40 @@ public class JDBCQuery {
 	 * @param docID
 	 * @return
 	 */
-
-	public File getDocumentFile(int docID) {
+	public UserDocument getDocumentFromID(int docID) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(getDocumentByDocumentID);
 			ps.setInt(1, docID);
 			ResultSet result = ps.executeQuery();
-			while (result.next()) {
-				// TODO
-				// need to verify how to retrieve longblob
-				Blob blob = result.getBlob("file");
-				File file = new File("here");
-				InputStream in = blob.getBinaryStream();
-				OutputStream out = FileOutputStream(file);
-				byte[] buff = blob.getBytes(1, (int) blob.length());
-				out.write(buff);
-				out.close();
-				return file;
 
-				// have file now
+			byte[] fileData = null;
+
+			while (result.next()) {
+
+				Blob blob = result.getBlob("file");
+
+				fileData = blob.getBytes(1, (int) blob.length());
+
+				File file = new File("~/Downloads/" + result.getString("documentname"));
+
+				FileOutputStream out = new FileOutputStream(file);
+				out.write(fileData);
+				out.close();
+
+				return new UserDocument(docID, result.getString("documentname"), file);
 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
+
+	// TODO
 
 	/**
 	 * return vector off all docIDs associated with a given userID
@@ -512,8 +556,6 @@ public class JDBCQuery {
 
 	}
 
-	// Vector<UserDocument>
-
 	// TODO
 
 	/**
@@ -521,15 +563,17 @@ public class JDBCQuery {
 	 * 
 	 * @param userID
 	 */
-	public void getUserDocuments(int userID) {
+	public Vector<UserDocument> getUserDocuments(int userID) {
 
 		Vector<Integer> docIDs = this.getUserDocuments2(userID);
 
 		Vector<UserDocument> userDocuments = new Vector<>();
 
 		for (Integer id : docIDs) {
-			// userDocuments.add(this.getDocumentFile(id));
+			userDocuments.add(this.getDocumentFromID(id));
 		}
+
+		return userDocuments;
 
 	}
 
@@ -550,6 +594,24 @@ public class JDBCQuery {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isUserEnrolledInClass(int classID, int userID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUserInClass);
+			ps.setInt(1, classID);
+			ps.setInt(2, userID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
 	/**
@@ -686,6 +748,25 @@ public class JDBCQuery {
 
 	}
 
+	/**
+	 * return vector of userDocuments given classID
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	public Vector<UserDocument> getClassUploads(int classID) {
+
+		Vector<UserDocument> classDocuments = new Vector<>();
+
+		Vector<Integer> docIDs = this.getClassUploads2(classID);
+
+		for (Integer id : docIDs) {
+			classDocuments.add(this.getDocumentFromID(id));
+		}
+
+		return classDocuments;
+	}
+
 	// MESSAGE METHODS
 
 	public void addMessage(int classID, int userID, int level, String content) {
@@ -778,6 +859,87 @@ public class JDBCQuery {
 			PreparedStatement ps = conn.prepareStatement(updateMessage);
 			ps.setString(1, newContent);
 			ps.setInt(2, messageID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// REQUESTS METHODS
+
+	/**
+	 * Adds a request
+	 * 
+	 * @param userID
+	 * @param classID
+	 */
+	public void addRequest(int userID, int classID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(addRequest);
+			ps.setInt(1, userID);
+			ps.setInt(2, classID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * return vector of userIDs requesting access to classID s
+	 * 
+	 * @param classID
+	 * @return
+	 */
+	private Vector<Integer> getUsersWithRequests2(int classID) {
+
+		Vector<Integer> requests = new Vector<Integer>();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(getUsersWithRequests);
+			ps.setInt(1, classID);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				requests.add(result.getInt("userID"));
+			}
+
+			return requests;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Vector<User> getUsersWithRequests(int classID) {
+
+		Vector<User> requestingUsers = new Vector<>();
+
+		Vector<Integer> userIDs = this.getUsersWithRequests2(classID);
+
+		for (Integer id : userIDs) {
+			requestingUsers.add(this.getUserByUserID(id));
+		}
+
+		return requestingUsers;
+
+	}
+
+	// request UPDATE methods
+
+	/**
+	 * switches request active status to false
+	 * 
+	 * @param classID
+	 * @param userID
+	 */
+	public void updateRequest(int classID, int userID) {
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateRequest);
+			ps.setInt(1, classID);
+			ps.setInt(2, userID);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
