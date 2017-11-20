@@ -8,6 +8,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Welcome to Scribe!</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Welcome.css">
+		<link rel='shortcut icon' type='image/x-icon' href='${pageContext.request.contextPath}/imgs/ScribeFavicon.ico'/>
 		<!-- <script type="text/javascript" src="./js/test.js"></script> -->
 	</head>
 	<body>

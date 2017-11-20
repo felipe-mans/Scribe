@@ -1,7 +1,15 @@
 @CHARSET "ISO-8859-1";
 body{
 	/*set background color */
+	background-image: url('../imgs/Parchment.jpg');
+	height: 100%;
+	
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	
 }
+
 h1, h4 {
 	text-align: center;
 	length: 100%;
