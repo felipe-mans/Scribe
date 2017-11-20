@@ -51,18 +51,14 @@ public class SignUpServlet extends HttpServlet {
 			return;
 		}
 		
-		JDBCQuery jdbcq = new JDBCQuery();
-		jdbcq.connect();
-		if (jdbcq.doesUserExist(username)){
-			jdbcq.stop();
+		if (JDBCQuery.doesUserExist(username)){
 			request.setAttribute("error", "User already exists");
 			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 		}
 		//invalid username
 		else{
-			jdbcq.addUser(fname, lname, username, password, email);
-			request.getSession().setAttribute("currUser", jdbcq.getUserByUsername(username));
-			jdbcq.stop();
+			JDBCQuery.addUser(fname, lname, username, password, email);
+			request.getSession().setAttribute("currUser", JDBCQuery.getUserByUsername(username));
 			request.getSession().setAttribute("signedIn", true);
 			response.sendRedirect("jsp/MemberPage.jsp");
 		}

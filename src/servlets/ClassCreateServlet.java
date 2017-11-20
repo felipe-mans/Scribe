@@ -32,16 +32,12 @@ public class ClassCreateServlet extends HttpServlet{
 			return;
 		}
 		
-		JDBCQuery jdbcq = new JDBCQuery();
-		jdbcq.connect();
-		if(jdbcq.doesClassExist(classname)){
-			jdbcq.stop();
+		if(JDBCQuery.doesClassExist(classname)){
 			request.setAttribute("error", "Class already exists");
 			request.getRequestDispatcher("jsp/MemberPage.jsp").forward(request, response);
 		}
 		else{
-			jdbcq.addClass(classname, isPrivate);
-			jdbcq.stop();
+			JDBCQuery.addClass(classname, isPrivate);
 		}
 	}
 }

@@ -38,26 +38,21 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		JDBCQuery jdbcq = new JDBCQuery();
-		jdbcq.connect();
-		if (jdbcq.doesUserExist(username)){
+		if (JDBCQuery.doesUserExist(username)){
 			//correct password
-			if (jdbcq.validate(username, password)){
-				request.getSession().setAttribute("currUser", jdbcq.getUserByUsername(username));
-				jdbcq.stop();
+			if (JDBCQuery.validate(username, password)){
+				request.getSession().setAttribute("currUser", JDBCQuery.getUserByUsername(username));
 				request.getSession().setAttribute("signedIn", true);
 				response.sendRedirect("jsp/MemberPage.jsp");
 			}
 			//incorrect password
 			else{
-				jdbcq.stop();
 				request.setAttribute("error", "Incorrect password");
 				request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 			}
 		}
 		//invalid username
 		else{
-			jdbcq.stop();
 			request.setAttribute("error", "Incorrect username");
 			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 		}

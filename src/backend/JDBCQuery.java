@@ -38,7 +38,7 @@ public class JDBCQuery {
 	// Users
 	private final static String selectUserByUsername = "SELECT * FROM Users WHERE username=?";
 	private final static String selectUserByUserID = "SELECT * FROM Users WHERE userID=?";
-	private final static String selectPassword = "SELECT password FROM User WHERE username=?";
+	private final static String selectPassword = "SELECT password FROM Users WHERE username=?";
 
 	// Classes
 	private final static String selectClassByClassID = "SELECT * FROM Classes WHERE classID=?";
@@ -114,19 +114,10 @@ public class JDBCQuery {
 	static final String USER = "root";
 	static final String PASS = "root";
 
-	public JDBCQuery() {
-		// Register JDBC driver
-		try {
-			new com.mysql.jdbc.Driver();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public static void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/Scribe?user=root&password=root&useSSL=false");
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -153,14 +144,6 @@ public class JDBCQuery {
 		}
 	}
 
-	public void stop() {
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	// USER METHODS
 
 	/**
@@ -172,7 +155,8 @@ public class JDBCQuery {
 	 * @param password
 	 * @param email
 	 */
-	public void addUser(String fname, String lname, String username, String password, String email) {
+	public static void addUser(String fname, String lname, String username, String password, String email) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addUser);
 			ps.setString(1, fname);
@@ -183,6 +167,8 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
@@ -192,7 +178,8 @@ public class JDBCQuery {
 	 * @param username
 	 * @return
 	 */
-	public User getUserByUsername(String username) {
+	public static User getUserByUsername(String username) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectUserByUsername);
 			ps.setString(1, username);
@@ -203,6 +190,8 @@ public class JDBCQuery {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
 	}
@@ -214,7 +203,8 @@ public class JDBCQuery {
 	 * @return
 	 */
 
-	public User getUserByUserID(int userID) {
+	public static User getUserByUserID(int userID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectUserByUserID);
 			ps.setInt(1, userID);
@@ -225,6 +215,8 @@ public class JDBCQuery {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
 	}
@@ -235,7 +227,8 @@ public class JDBCQuery {
 	 * @param username
 	 * @return true if username exists, else false
 	 */
-	public boolean doesUserExist(String username) {
+	public static boolean doesUserExist(String username) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectUserByUsername);
 			ps.setString(1, username);
@@ -246,6 +239,8 @@ public class JDBCQuery {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return false;
 	}
@@ -280,7 +275,8 @@ public class JDBCQuery {
 
 	// user UPDATE methods
 
-	public void updateUserFirstname(String newFirstname) {
+	public static void updateUserFirstname(String newFirstname) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserFirstname);
 			ps.setString(1, newFirstname);
@@ -288,10 +284,13 @@ public class JDBCQuery {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
-	public void updateUserLastname(String newLastname) {
+	public static void updateUserLastname(String newLastname) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserLastname);
 			ps.setString(1, newLastname);
@@ -299,10 +298,13 @@ public class JDBCQuery {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
-	public void updateUserUsername(String newUsername) {
+	public static void updateUserUsername(String newUsername) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserUsername);
 			ps.setString(1, newUsername);
@@ -310,10 +312,13 @@ public class JDBCQuery {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
-	public void updateUserPassword(String newPassword) {
+	public static void updateUserPassword(String newPassword) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserPassword);
 			ps.setString(1, newPassword);
@@ -321,17 +326,21 @@ public class JDBCQuery {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
-	public void updateUserEmail(String newEmail) {
+	public static void updateUserEmail(String newEmail) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateUserEmail);
 			ps.setString(1, newEmail);
 			ps.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
@@ -343,7 +352,8 @@ public class JDBCQuery {
 	 * @param classname
 	 * @param isPrivate
 	 */
-	public void addClass(String classname, boolean isPrivate) {
+	public static void addClass(String classname, boolean isPrivate) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addClass);
 			ps.setString(1, classname);
@@ -351,6 +361,8 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
@@ -360,7 +372,8 @@ public class JDBCQuery {
 	 * @param classname
 	 * @return true if yes, else no
 	 */
-	public boolean doesClassExist(String classname) {
+	public static boolean doesClassExist(String classname) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectClassByClassname);
 			ps.setString(1, classname);
@@ -371,6 +384,8 @@ public class JDBCQuery {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return false;
 	}
@@ -381,7 +396,8 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Classroom getClassFromID(int classID) {
+	public static Classroom getClassFromID(int classID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectClassByClassID);
 			ps.setInt(1, classID);
@@ -391,6 +407,8 @@ public class JDBCQuery {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
 	}
@@ -401,7 +419,8 @@ public class JDBCQuery {
 	 * @param classname
 	 * @return
 	 */
-	public Classroom getClassFromClassname(String classname) {
+	public static Classroom getClassFromClassname(String classname) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectClassByClassname);
 			ps.setString(1, classname);
@@ -410,11 +429,11 @@ public class JDBCQuery {
 				return new Classroom(result.getInt("classID"), result.getString("classname"),
 						result.getBoolean("private"));
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
-
 		return null;
 	}
 
@@ -424,7 +443,8 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return true if private else false
 	 */
-	public boolean isClassPrivate(int classID) {
+	public static boolean isClassPrivate(int classID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(selectClassByClassID);
 			ps.setInt(1, classID);
@@ -434,6 +454,8 @@ public class JDBCQuery {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return false;
 	}
@@ -442,13 +464,14 @@ public class JDBCQuery {
 
 	/**
 	 * Assume classID exists at this point Reverses class setting from private
-	 * to public or vice versa
+	 * to public static or vice versa
 	 * 
 	 * @param classID
 	 * @return
 	 */
-	public void updateClassPrivacy(int classID) {
-		boolean newPrivacySetting = !(this.isClassPrivate(classID));
+	public static void updateClassPrivacy(int classID) {
+		connect();
+		boolean newPrivacySetting = !(isClassPrivate(classID));
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateClassPrivacy);
 			ps.setBoolean(1, newPrivacySetting);
@@ -456,10 +479,13 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
-	public void updateClassname(int classID, String newContent) {
+	public static void updateClassname(int classID, String newContent) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateClassname);
 			ps.setString(1, newContent);
@@ -467,25 +493,28 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
 	// DOCUMENT METHODS
 
-	public void addDocument(int userID, String documentname, Part filePart) {
+	public static void addDocument(int userID, String documentname, Part filePart) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addDocument);
 			ps.setInt(1, userID);
 			ps.setString(2, documentname);
-
 			InputStream inputstream = filePart.getInputStream();
 			ps.setBinaryStream(3, inputstream, (int) filePart.getSize());
-
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
@@ -497,28 +526,21 @@ public class JDBCQuery {
 	 * @param docID
 	 * @return
 	 */
-	public UserDocument getDocumentFromID(int docID) {
+	public static UserDocument getDocumentFromID(int docID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(getDocumentByDocumentID);
 			ps.setInt(1, docID);
 			ResultSet result = ps.executeQuery();
-
 			byte[] fileData = null;
-
 			while (result.next()) {
-
 				Blob blob = result.getBlob("file");
-
 				fileData = blob.getBytes(1, (int) blob.length());
-
 				File file = new File("~/Downloads/" + result.getString("documentname"));
-
 				FileOutputStream out = new FileOutputStream(file);
 				out.write(fileData);
 				out.close();
-
 				return new UserDocument(docID, result.getString("documentname"), file);
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -526,6 +548,8 @@ public class JDBCQuery {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
 	}
@@ -535,10 +559,9 @@ public class JDBCQuery {
 	/**
 	 * return vector off all docIDs associated with a given userID
 	 */
-	private Vector<Integer> getUserDocuments2(int userID) {
-
+	private static Vector<Integer> getUserDocuments2(int userID) {
+		connect();
 		Vector<Integer> userDocuments = new Vector<Integer>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUserDocuments);
 			ps.setInt(1, userID);
@@ -546,14 +569,13 @@ public class JDBCQuery {
 			while (result.next()) {
 				userDocuments.add(result.getInt("docID"));
 			}
-
 			return userDocuments;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
-
 	}
 
 	// TODO
@@ -563,18 +585,15 @@ public class JDBCQuery {
 	 * 
 	 * @param userID
 	 */
-	public Vector<UserDocument> getUserDocuments(int userID) {
-
-		Vector<Integer> docIDs = this.getUserDocuments2(userID);
-
+	public static Vector<UserDocument> getUserDocuments(int userID) {
+		connect();
+		Vector<Integer> docIDs = getUserDocuments2(userID);
 		Vector<UserDocument> userDocuments = new Vector<>();
-
 		for (Integer id : docIDs) {
-			userDocuments.add(this.getDocumentFromID(id));
+			userDocuments.add(getDocumentFromID(id));
 		}
-
+		close();
 		return userDocuments;
-
 	}
 
 	// ENROLLMENT METHODS
@@ -585,7 +604,8 @@ public class JDBCQuery {
 	 * @param classID
 	 * @param userID
 	 */
-	public void addEnrollment(int classID, int userID) {
+	public static void addEnrollment(int classID, int userID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addEnrollment);
 			ps.setInt(1, classID);
@@ -593,11 +613,13 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
-	public boolean isUserEnrolledInClass(int classID, int userID) {
-
+	public static boolean isUserEnrolledInClass(int classID, int userID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUserInClass);
 			ps.setInt(1, classID);
@@ -606,21 +628,20 @@ public class JDBCQuery {
 			while (result.next()) {
 				return true;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return false;
-
 	}
 
 	/**
 	 * return vector of userIDs associated with a classID
 	 */
-	private Vector<Integer> getUsersEnrolledInClass2(int classID) {
-
+	private static Vector<Integer> getUsersEnrolledInClass2(int classID) {
+		connect();
 		Vector<Integer> usersInClass = new Vector<Integer>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUsersEnrolledInClass);
 			ps.setInt(1, classID);
@@ -628,14 +649,13 @@ public class JDBCQuery {
 			while (result.next()) {
 				usersInClass.add(result.getInt("userID"));
 			}
-
 			return usersInClass;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
-
 	}
 
 	/**
@@ -645,27 +665,23 @@ public class JDBCQuery {
 	 * @return
 	 */
 
-	public Vector<User> getUsersEnrolledInClass(int classID) {
-
+	public static Vector<User> getUsersEnrolledInClass(int classID) {
+		connect();
 		Vector<User> enrolledUsers = new Vector<>();
-
-		Vector<Integer> userIDs = this.getUsersEnrolledInClass2(classID);
-
+		Vector<Integer> userIDs = getUsersEnrolledInClass2(classID);
 		for (Integer id : userIDs) {
-			enrolledUsers.add(this.getUserByUserID(id));
+			enrolledUsers.add(getUserByUserID(id));
 		}
-
+		close();
 		return enrolledUsers;
-
 	}
 
 	/**
 	 * return vector of classIDs associated with userID
 	 */
-	private Vector<Integer> getUserEnrollments2(int userID) {
-
+	private static Vector<Integer> getUserEnrollments2(int userID) {
+		connect();
 		Vector<Integer> enrollment = new Vector<Integer>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUserEnrollments);
 			ps.setInt(1, userID);
@@ -673,14 +689,13 @@ public class JDBCQuery {
 			while (result.next()) {
 				enrollment.add(result.getInt("classID"));
 			}
-
 			return enrollment;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
-
 	}
 
 	/**
@@ -689,16 +704,14 @@ public class JDBCQuery {
 	 * @param userID
 	 * @return
 	 */
-	public Vector<Classroom> getUserEnrollments(int userID) {
-
+	public static Vector<Classroom> getUserEnrollments(int userID) {
+		connect();
 		Vector<Classroom> userClasses = new Vector<>();
-
-		Vector<Integer> classIDs = this.getUserEnrollments2(userID);
-
+		Vector<Integer> classIDs = getUserEnrollments2(userID);
 		for (Integer id : classIDs) {
-			userClasses.add(this.getClassFromID(id));
+			userClasses.add(getClassFromID(id));
 		}
-
+		close();
 		return userClasses;
 	}
 
@@ -710,7 +723,8 @@ public class JDBCQuery {
 	 * @param classID
 	 * @param docID
 	 */
-	public void addUpload(int classID, int docID) {
+	public static void addUpload(int classID, int docID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addUpload);
 			ps.setInt(1, classID);
@@ -718,6 +732,8 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
@@ -727,10 +743,9 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Vector<Integer> getClassUploads2(int classID) {
-
+	public static Vector<Integer> getClassUploads2(int classID) {
+		connect();
 		Vector<Integer> classDocuments = new Vector<Integer>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getClassUploads);
 			ps.setInt(1, classID);
@@ -738,14 +753,13 @@ public class JDBCQuery {
 			while (result.next()) {
 				classDocuments.add(result.getInt("docID"));
 			}
-
 			return classDocuments;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
-
 	}
 
 	/**
@@ -754,22 +768,21 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Vector<UserDocument> getClassUploads(int classID) {
-
+	public static Vector<UserDocument> getClassUploads(int classID) {
+		connect();
 		Vector<UserDocument> classDocuments = new Vector<>();
-
-		Vector<Integer> docIDs = this.getClassUploads2(classID);
-
+		Vector<Integer> docIDs = getClassUploads2(classID);
 		for (Integer id : docIDs) {
-			classDocuments.add(this.getDocumentFromID(id));
+			classDocuments.add(getDocumentFromID(id));
 		}
-
+		close();
 		return classDocuments;
 	}
 
 	// MESSAGE METHODS
 
-	public void addMessage(int classID, int userID, int level, String content) {
+	public static void addMessage(int classID, int userID, int level, String content) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addMessage);
 			ps.setInt(1, classID);
@@ -779,8 +792,9 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
-
 	}
 
 	/**
@@ -789,10 +803,9 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	private Vector<Integer> getMessagesFromClass2(int classID) {
-
+	private static Vector<Integer> getMessagesFromClass2(int classID) {
+		connect();
 		Vector<Integer> classMessages = new Vector<Integer>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getMessagesFromClass);
 			ps.setInt(1, classID);
@@ -800,18 +813,17 @@ public class JDBCQuery {
 			while (result.next()) {
 				classMessages.add(result.getInt("messageID"));
 			}
-
 			return classMessages;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
-
 	}
 
-	public ClassMessage getMessageFromID(int messageID) {
-
+	public static ClassMessage getMessageFromID(int messageID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(getMessageFromID);
 			ps.setInt(1, messageID);
@@ -821,9 +833,10 @@ public class JDBCQuery {
 				return new ClassMessage(messageID, result.getInt("classID"), result.getInt("userID"),
 						result.getInt("level"), result.getString("content"));
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
 	}
@@ -834,16 +847,14 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	public Vector<ClassMessage> getMessagesFromClass(int classID) {
-
+	public static Vector<ClassMessage> getMessagesFromClass(int classID) {
+		connect();
 		Vector<ClassMessage> classMessages = new Vector<>();
-
-		Vector<Integer> messageIDs = this.getMessagesFromClass2(classID);
-
+		Vector<Integer> messageIDs = getMessagesFromClass2(classID);
 		for (Integer id : messageIDs) {
-			classMessages.add(this.getMessageFromID(id));
+			classMessages.add(getMessageFromID(id));
 		}
-
+		close();
 		return classMessages;
 	}
 
@@ -853,8 +864,8 @@ public class JDBCQuery {
 	 * @param messageID
 	 * @param newContent
 	 */
-	public void updateMessage(int messageID, String newContent) {
-
+	public static void updateMessage(int messageID, String newContent) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateMessage);
 			ps.setString(1, newContent);
@@ -862,6 +873,8 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 
@@ -873,8 +886,8 @@ public class JDBCQuery {
 	 * @param userID
 	 * @param classID
 	 */
-	public void addRequest(int userID, int classID) {
-
+	public static void addRequest(int userID, int classID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addRequest);
 			ps.setInt(1, userID);
@@ -882,8 +895,9 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
-
 	}
 
 	/**
@@ -892,10 +906,9 @@ public class JDBCQuery {
 	 * @param classID
 	 * @return
 	 */
-	private Vector<Integer> getUsersWithRequests2(int classID) {
-
+	private static Vector<Integer> getUsersWithRequests2(int classID) {
+		connect();
 		Vector<Integer> requests = new Vector<Integer>();
-
 		try {
 			PreparedStatement ps = conn.prepareStatement(getUsersWithRequests);
 			ps.setInt(1, classID);
@@ -903,27 +916,24 @@ public class JDBCQuery {
 			while (result.next()) {
 				requests.add(result.getInt("userID"));
 			}
-
 			return requests;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return null;
 	}
 
-	public Vector<User> getUsersWithRequests(int classID) {
-
+	public static Vector<User> getUsersWithRequests(int classID) {
+		connect();
 		Vector<User> requestingUsers = new Vector<>();
-
-		Vector<Integer> userIDs = this.getUsersWithRequests2(classID);
-
+		Vector<Integer> userIDs = getUsersWithRequests2(classID);
 		for (Integer id : userIDs) {
-			requestingUsers.add(this.getUserByUserID(id));
+			requestingUsers.add(getUserByUserID(id));
 		}
-
+		close();
 		return requestingUsers;
-
 	}
 
 	// request UPDATE methods
@@ -934,8 +944,8 @@ public class JDBCQuery {
 	 * @param classID
 	 * @param userID
 	 */
-	public void updateRequest(int classID, int userID) {
-
+	public static void updateRequest(int classID, int userID) {
+		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(updateRequest);
 			ps.setInt(1, classID);
@@ -943,12 +953,8 @@ public class JDBCQuery {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
-	}
-
-	public static void main(String[] args) {
-		JDBCQuery Q = new JDBCQuery();
-		Q.connect();
-
 	}
 }

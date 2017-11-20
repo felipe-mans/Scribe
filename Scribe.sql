@@ -16,7 +16,7 @@ CREATE TABLE Classes (
 
 	classID INTEGER PRIMARY KEY not null auto_increment,
     classname VARCHAR(255) not null,
-    private BOOLEAN not null,
+    private BOOLEAN not null
 	);
 	
 CREATE TABLE Documents (
