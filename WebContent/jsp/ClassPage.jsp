@@ -26,9 +26,7 @@ if(true) {%>
 		
 		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
 		
-		
-		
-		
+			
 		<script>document.getElementById("requestButton").style.display="none";</script>
 		
 		<%

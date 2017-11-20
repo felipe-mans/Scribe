@@ -7,7 +7,7 @@
 <html>
 	<body> -->
 		
-		<h1>Welcome to member page</h1>
+		<h1>Welcome <% currUser.getUsername(); %></h1>
 	
 		<div id="classes" class="classes">
 			<h3>My Classes</h3> <hr />
