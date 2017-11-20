@@ -54,7 +54,7 @@
 	</div>
 	<div class="formBackground" id="formBox">
 		<div class="formContent" id="newClassForm">
-			<form class="form" id="addClassform" action="ClassPages.jsp">
+			<form class="form" id="addClassform" action="ClassPage.jsp">
 				<h4>Create a New Class</h4> <br>
 				<input id="public" name="public" type="radio">Public
 				<input id="private" name="private" type="radio">Private<br><br>
