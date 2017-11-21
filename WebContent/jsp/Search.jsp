@@ -45,7 +45,7 @@ if(signedIn) {%>
 						Members: <%=JDBCQuery.getUsersEnrolledInClass(classroom.getClassID()).size() %>
 					</div>
 					<div id="go-to-class">
-						<form action="/GoToClassServlet">
+						<form action="${pageContext.request.contextPath}/GoToClassServlet">
 							<input type= "text" name="classroom" value=<%=classroom.getClassname()%> class="hidden"/> <!-- need to hide this field -->
 							<input type="submit" name="submit" value="Go"></input>
 						</form>

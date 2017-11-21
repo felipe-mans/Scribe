@@ -22,11 +22,9 @@
 			var userId = document.getElementById("userId");
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
-				socket.onopen = function(event) {}
 				socket.onmessage = function(event) {
 					document.getElementById("discussion-menu").innerHTML += event.data + "<br />";
 				}
-				socket.onclose = function(event) {}
 			}
 			function sendMessage() {
 				socket.send(document.discussionBoard.message.value);
