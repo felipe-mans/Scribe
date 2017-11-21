@@ -532,21 +532,11 @@ public class JDBCQuery {
 			PreparedStatement ps = conn.prepareStatement(getDocumentByDocumentID);
 			ps.setInt(1, docID);
 			ResultSet result = ps.executeQuery();
-			byte[] fileData = null;
 			while (result.next()) {
 				Blob blob = result.getBlob("file");
-				fileData = blob.getBytes(1, (int) blob.length());
-				File file = new File("~/Downloads/" + result.getString("documentname"));
-				FileOutputStream out = new FileOutputStream(file);
-				out.write(fileData);
-				out.close();
-				return new UserDocument(docID, result.getString("documentname"), file);
+				return new UserDocument(docID, result.getString("documentname"), blob);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			close();
