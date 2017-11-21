@@ -55,7 +55,6 @@ public class SignUpServlet extends HttpServlet {
 			request.setAttribute("error", "User already exists");
 			request.getRequestDispatcher("jsp/Welcome.jsp").forward(request, response);
 		}
-		//invalid username
 		else{
 			JDBCQuery.addUser(fname, lname, username, password, email);
 			request.getSession().setAttribute("currUser", JDBCQuery.getUserByUsername(username));

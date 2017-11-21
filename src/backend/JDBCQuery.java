@@ -66,7 +66,7 @@ public class JDBCQuery {
 	// INSERT statements
 
 	// Users
-	private final static String addUser = "INSERT INTO Users(fname,  email) VALUES(?, ?, ?, ?, ?)";
+	private final static String addUser = "INSERT INTO Users(fname, lname, username, password, email) VALUES(?, ?, ?, ?, ?)";
 
 	// Classes
 	private final static String addClass = "INSERT INTO Classes(classname, private) VALUES(?,?)";

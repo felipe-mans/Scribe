@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-/* boolean signedIn = (boolean)request.getSession().getAttribute("signedIn");
-User currUser = (User)request.getSession().getAttribute("currUser"); */
+boolean signedIn = (boolean)request.getSession().getAttribute("signedIn");
+User currUser = (User)request.getSession().getAttribute("currUser");
 if(true) {%>
 	<%@include file="NavBarM.jsp"%>
 <%} else {%>
@@ -12,7 +12,7 @@ if(true) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-	
+		<noscript id ="username"><%=currUser.getUsername()%></noscript>
 		<div class = "titleBar">
 			<div class = "logo">
 			</div>
