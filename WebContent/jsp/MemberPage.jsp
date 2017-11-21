@@ -29,11 +29,16 @@
 						}
 					%>
 					</div>
-					
-					<form action="Search.jsp">
-    					<input id= "enroll" type="submit" value="Enroll" />
-					</form>
+
+				
+				
+				<div class="enrollForm">
+				<form id="enrollForm" action="Search.jsp">
+    				<input id= "enroll" type="submit" value="Enroll">
+				</form>
 				</div>
+				</div>
+				
 			</div>
 		
 			<div id="documents" class="documents">
