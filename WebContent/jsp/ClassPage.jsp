@@ -35,7 +35,6 @@ if(signedIn) {%>
 			<div class="vertical-menu" id="classes-menu">
 				<%
 					Vector<User> students = JDBCQuery.getUsersEnrolledInClass(currClass.getClassID());
-				
 					for(User student:students)
 					{
 				%>
@@ -81,19 +80,11 @@ if(signedIn) {%>
 			<div class="vertical-menu" id="documents-menu">
 				<%
 					Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
+					System.out.println(classDocuments.size());
 					for(UserDocument document:classDocuments)
-					{
-						String ext = document.getExtension();
-						if(ext.equals("mp3")) {							
-				%> <audio controls> <source src="<%document.getName();%>" type="audio/mpeg"></audio> 
-						<%}
-						if(ext.equals("mp4")) {
-				%> <video width="250" controls> <source src="<%document.getName();%>" type="video/mp4"></audio>			
-						<%}
-						if(ext.equals("pdf")) { %>
-							<a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a>
+					{ %>
+						<p><a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a></p>
 					<%}
-					}
 				%>
 			</div>
 		</div>

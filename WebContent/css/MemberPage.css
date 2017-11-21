@@ -26,6 +26,7 @@ body {
 
 #classes {
 	height: 70%;
+	position:relative;
 }
 
 #documents {
@@ -64,14 +65,16 @@ body {
 	font-size: 25px;
 }
 
+.enrollForm {
+	margin: auto;
+	position: absolute;
+	bottom: 0;
+}
+
 #enroll {
 	font-family: Hitchhiker;
 	background-color: Transparent;
 	border: none;
 	text-align: center;
-	font-size: 28px;
-	position: absolute;
-	
-	bottom: 0;
-	
+	font-size: 28px;	
 }

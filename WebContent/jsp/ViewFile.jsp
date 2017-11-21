@@ -17,8 +17,7 @@
 	<body>
 		<%  
             String id = request.getParameter("id");
-			System.out.println(id);
-            Blob blob = null;
+            Blob file = null;
             byte[ ] fileData = null;
             try
             {    
@@ -33,8 +32,8 @@
             			break;
             	}
                 response.setHeader("Content-Disposition", "inline");
-                blob = doc.getBlob();
-                fileData = blob.getBytes(1,(int)blob.length());
+                file = doc.getBlob();
+                fileData = file.getBytes(1,(int)file.length());
                 response.setContentLength(fileData.length);
                 OutputStream output = response.getOutputStream();
                 output.write(fileData);

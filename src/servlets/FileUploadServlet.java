@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import backend.JDBCQuery;
+import databaseObjects.Classroom;
 import databaseObjects.User;
 
 @WebServlet("/FileUploadServlet")
@@ -27,6 +28,7 @@ public class FileUploadServlet extends HttpServlet{
 		Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
 	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 	    JDBCQuery.addDocument(((User)request.getSession().getAttribute("currUser")).getUserID(), fileName, filePart);
+	    JDBCQuery.addUpload(((Classroom)request.getSession().getAttribute("currClass")).getClassID(), JDBCQuery.getDocumentByDocumentname(fileName).getDocID());
 	    response.sendRedirect("jsp/ClassPage.jsp");
 	}
 }

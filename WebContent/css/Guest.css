@@ -37,41 +37,40 @@ h1 {
 	text-align: center;
 }
 
-/*
 #navBar {
 	list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #fffef7;
 }
-*/
 
 #navBarOption a {
 	display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 #navBarOption a:hover {
-	background-color: #111;
+	background-color: #fcf9e3;
 }
 
 .navBarDiv {
-	width: 100%;
+	margin: auto;
+	width: 61.45%;
 }
 
 .formDiv {
 	float: left;
 	margin-left: 1%;
-	width: 30%;	
+	width: 15%;	
 }
 
 .signUpButton {
 	float:right;
-	width: 10%;
+	width: 15%;
 }
 
 #discussionBox {
@@ -86,10 +85,9 @@ h1 {
 
 #searchBox {
     width: 50%;
-    box-sizing: border-box;
-    border-radius: 4px;
     font-size: 16px;
-    background-color: #333;
+    border: none;
+    background-color: #fffef7;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 20px;
@@ -100,4 +98,5 @@ h1 {
 
 #searchBox:focus {
     width: 75%;
+    border: solid #333;
 }
