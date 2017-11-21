@@ -21,6 +21,7 @@ if(signedIn) {%>
 	
 	<div class="backdrop">
 		<p id="welcome">Welcome to <%= currClass.getClassname()%></p>
+		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
 		<div class="otherDivs">		
 		<div class="box" id="membersList">
 			<p id="membersTitle">Members</p> <hr />
@@ -71,6 +72,7 @@ if(signedIn) {%>
 			<div class="vertical-menu" id="documents-menu">
 				<%
 					Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
+					System.out.println(classDocuments.size());
 					for(UserDocument document:classDocuments)
 					{ %>
 						<p><a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a></p>
@@ -79,13 +81,13 @@ if(signedIn) {%>
 			</div>
 		</div>
 		</div>
-		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
+		
 		
 		</div>	
 		<script>document.getElementById("requestButton").style.display="none";</script>
 		
 		<%
-			if(currClass.isPrivate() && !currUser.getUsername().equals("Guest") && !JDBCQuery.isUserEnrolledInClass(currClass.getClassID(), currUser.getUserID())) 
+			if(currClass.isPrivate() && !currUser.getUsername().equals("Guest") && !JDBCQuery.isUserEnrolledInClass(currClass.getClassID(),currUser.getUserID())) 
 			{ 
 		%>
 			<script>document.getElementById("requestButton").style.display="inline";</script>

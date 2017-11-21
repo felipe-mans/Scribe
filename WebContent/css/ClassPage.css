@@ -29,7 +29,8 @@ body {
 }
 
 #membersList {
-	height: 60%;
+	height: 380px;
+	max-height: 380px;
 	width: 20%;
 	margin-left: 2%;
 	position: relative;
@@ -55,7 +56,8 @@ body {
 }
 
 #documentsList {
-	height: 60%;
+	height: 380px;
+	max-height: 380px;
 	width: 30%;
 	border: 1px solid black;
 }
@@ -66,9 +68,18 @@ body {
 	text-align: center;
 }
 
+#discussion-menu {
+	overflow: scroll;
+	height: 380px;
+	max-height: 380px;
+}
+
 .otherDivs {
-	width: 100%;
-	position: absolute;
+	display: flex;
+}
+
+.otherDivs > div {
+  flex: 1; /*grow*/
 }
 
 
