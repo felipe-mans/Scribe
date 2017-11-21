@@ -58,6 +58,7 @@ h1 {
 }
 
 .navBarDiv {
+	margin: auto;
 	width: 61.45%;
 }
 
@@ -85,6 +86,7 @@ h1 {
 #searchBox {
     width: 50%;
     font-size: 16px;
+    border: none;
     background-color: #fffef7;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
