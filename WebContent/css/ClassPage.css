@@ -30,7 +30,10 @@ body {
 
 #membersList {
 	height: 70%;
+	width: 20%;
+	margin-left: 5%;
 	position: relative;
+	border: 1px solid black;
 }
 
 #membersTitle {
@@ -41,6 +44,8 @@ body {
 
 #discussionBox {
 	height: 70%;
+	width: 30%;
+	border: 1px solid black;
 }
 
 #discussionTitle {
@@ -51,6 +56,8 @@ body {
 
 #documentsList {
 	height: 70%;
+	width: 30%;
+	border: 1px solid black;
 }
 
 #documentsTitle {
