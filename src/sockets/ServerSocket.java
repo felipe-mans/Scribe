@@ -41,7 +41,7 @@ public class ServerSocket {
 			JDBCQuery.addRequest(Integer.parseInt(userId), Integer.parseInt(classId));
 			message = request[3] + " " + request[4];
 		} else {
-			String msg[] = message.split(" ", 3);
+			String[] msg = message.split(" ", 3);
 			String classID = msg[0];
 			String userID = msg[1];
 			message = msg[2];
