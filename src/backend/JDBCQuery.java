@@ -112,7 +112,7 @@ public class JDBCQuery {
 
 	// Database credentials
 	static final String USER = "root";
-	static final String PASS = "nervouscandle5";
+	static final String PASS = "root";
 
 	public static void connect() {
 		try {
@@ -236,7 +236,7 @@ public class JDBCQuery {
 			while (result.next()) {
 				return true;
 			}
-
+			return false;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
