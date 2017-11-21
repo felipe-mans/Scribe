@@ -23,7 +23,7 @@
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
 				socket.onmessage = function(event) {
-					document.getElementById("discussion-menu").innerHTML += event.data + "<br />";
+					document.getElementById("discussion-menu").innerHTML = event.data + "<br />" + document.getElementById("discussion-menu").innerHTML;
 				}
 			}
 			function sendMessage() {
