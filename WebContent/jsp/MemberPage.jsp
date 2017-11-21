@@ -9,34 +9,37 @@
 	
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MemberPage.css">
 		
-		<h1>Welcome <%=currUser.getUsername()%></h1>
-	
-		<div id="classes" class="classes">
-			<h3>My Classes</h3> <hr />
-			<div class="box" id="classes-list">
-				<div class="vertical-menu" id="classes-menu">
-				<%
-					Vector<Classroom> myClasses = JDBCQuery.getUserEnrollments(currUser.getUserID());
-					for(Classroom classroom:myClasses) {
-				%>
-					<form action="${pageContext.request.contextPath}/GoToClassServlet">
-						<%=classroom.getClassname()%>
-						<input type="text" name="classroom" value=<%=classroom.getClassname()%>> <!-- need to hide this field -->
-						<input type="submit" name="submit"/>
-					</form>
-				<% 
-					}
-				%>
-				</div>
-				
-				<a href="Search.jsp">New Class</a>
-			</div>
-		</div>
+		<div class= "cpBackdrop" id= "cpBackdrop">
 		
-		<div id="documents" class="documents">
-			<h3>My Documents</h3> <hr />
-			<div class="box" id="documents-list">
-				<div class="vertical-menu" id="documents-menu">
+			<p id=classPageWelcome> Welcome, <%=currUser.getUsername()%></p>
+	
+			<div id="classes" class="classes">
+				<p id= "classesHeader">My Classes</p> <hr />
+				<div class="box" id="classes-list">
+					<div class="vertical-menu" id="classes-menu">
+					<%
+						Vector<Classroom> myClasses = JDBCQuery.getUserEnrollments(currUser.getUserID());
+						for(Classroom classroom:myClasses) {
+					%>
+						<form id= "classItem" action="${pageContext.request.contextPath}/GoToClassServlet">
+							<input id= "classHide" type="text" name="classroom" value=<%=classroom.getClassname()%>> <!-- need to hide this field -->
+							<input id= "classButton" type="submit" name="submit" value=<%=classroom.getClassname()%>>
+						</form>
+					<% 
+						}
+					%>
+					</div>
+					
+					<form action="Search.jsp">
+    					<input id= "enroll" type="submit" value="Enroll" />
+					</form>
+				</div>
+			</div>
+		
+			<div id="documents" class="documents">
+				<p id="documentsHeader">My Documents</p> <hr />
+				<div class="box" id="documents-list">
+					<div class="vertical-menu" id="documents-menu">
 				<%
 					Vector<UserDocument> myDocuments = JDBCQuery.getUserDocuments(currUser.getUserID());
 					for(UserDocument document:myDocuments) {
@@ -47,6 +50,7 @@
 				<% 
 					}
 				%>
+					</div>
 				</div>
 			</div>
 		</div>
