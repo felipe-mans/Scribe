@@ -93,7 +93,7 @@ h1 {
     padding: 12px 20px 12px 20px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-    color: white;
+    color: black;
 }
 
 #searchBox:focus {
