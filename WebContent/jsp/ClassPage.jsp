@@ -12,6 +12,10 @@ if(true) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
+		<noscript id ="username"><%=currUser.getUsername()%></noscript>
+		<noscript id ="userId"><%=currUser.getUserID()%></noscript>
+		<noscript id ="classId"><%=currClass.getClassId()%></noscript>
+	
 		<div class="box" id="title-bar">
 			<div class = "logo">
 			</div>

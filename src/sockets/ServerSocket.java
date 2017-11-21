@@ -10,6 +10,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import backend.JDBCQuery;
+
 @ServerEndpoint(value = "/discussion")
 public class ServerSocket {
 
@@ -24,6 +26,21 @@ public class ServerSocket {
 	@OnMessage
 	public void onMessage(String message, Session session) {
 		System.out.println(message);
+		if(message.startsWith("ACCEPT")) {
+			String[] request = message.split(" ");
+			String uname = request[1];
+			String classId = request[2];
+			String userId = request[3];
+			JDBCQuery.addEnrollment(Integer.parseInt(classId), Integer.parseInt(userId));
+			message = uname + " has joined the class!";
+		} else if(message.startsWith("REQUEST")) {
+			String[] request = message.split(" ", 5);
+			String classId = request[1];
+			String userId = request[2];
+			String uname = request[3];
+			JDBCQuery.addRequest(Integer.parseInt(userId), Integer.parseInt(classId));
+			message = request[3] + " " + request[4];
+		}
 		try {
 			for(Session s : sessionVector) {
 				s.getBasicRemote().sendText(message);
