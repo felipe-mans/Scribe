@@ -17,9 +17,6 @@
 			var requestButton = document.getElementById("requestButton");
 			var acceptButton = document.getElementById("acceptButton");
 			var requestButton = document.getElementById("addClass");
-			var uname = document.getElementById("username");
-			var classId = document.getElementById("classId");
-			var userId = document.getElementById("userId");
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
 				socket.onmessage = function(event) {
@@ -27,10 +24,16 @@
 				}
 			}
 			function sendMessage() {
-				socket.send(classId + " " + userId + " " + username + ": " + document.discussionBoard.message.value);
+				var uname = document.getElementById("username").innerHTML;
+				var classId = document.getElementById("classId").innerHTML;
+				var userId = document.getElementById("userId").innerHTML;
+				socket.send(classId + " " + userId + " " + uname + ": " + document.discussionBoard.message.value);
 				return false;
 			}
 			function sendRequest() {
+				var uname = document.getElementById("username").innerHTML;
+				var classId = document.getElementById("classId").innerHTML;
+				var userId = document.getElementById("userId").innerHTML;
 				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "</noscript><button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
 			}
 			function acceptRequest(u_name, user_Id) {
