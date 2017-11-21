@@ -71,12 +71,18 @@ if(signedIn) {%>
 			</div>
 			<div class="vertical-menu" id="documents-menu">
 				<%
-					Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
-					System.out.println(classDocuments.size());
-					for(UserDocument document:classDocuments)
-					{ %>
-						<p><a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a></p>
-					<%}
+					if((!currClass.isPrivate() || JDBCQuery.isUserEnrolledInClass(currClass.getClassID(), currUser.getUserID())) && !currUser.getUsername().equals("Guest")) {
+						Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
+						System.out.println(classDocuments.size());
+						for(UserDocument document:classDocuments)
+						{ %>
+							<p><a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a></p>
+						<%}
+					} else {
+						%>
+						Only available to class members.
+						<%
+					}
 				%>
 			</div>
 		</div>

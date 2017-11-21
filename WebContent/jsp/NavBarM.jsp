@@ -15,7 +15,6 @@
 		<script>
 			var socket;
 			var requestButton = document.getElementById("requestButton");
-			var acceptButton = document.getElementById("acceptButton");
 			var requestButton = document.getElementById("addClass");
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
@@ -38,8 +37,11 @@
 				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "</noscript><button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
 			}
 			function acceptRequest(u_name, user_Id) {
+				var classId = document.getElementById("classId").innerHTML;
+				var acceptButton = document.getElementById("acceptButton");
 				socket.send("ACCEPT " + document.getElementById("requestName").innerHTML + " " + classId + " " + document.getElementById("requestId").innerHTML);
 				acceptButton.disabled = true;
+				location.reload();
 			}
 		</script>
 	</head>
