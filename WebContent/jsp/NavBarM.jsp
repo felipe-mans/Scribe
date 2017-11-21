@@ -65,11 +65,20 @@
 	</div>
 	<div class="formBackground" id="formBox">
 		<div class="formContent" id="newClassForm">
+			<div class="formTitle">
+				<div class="letter">
+					N
+				</div>
+				<div class="words">
+					New Class
+				</div>
+			</div>
 			<form class="form" id="addClassform" action="${pageContext.request.contextPath}/ClassCreateServlet">
-				<h4>Create a New Class</h4> <br>
-				<input type="text" name="classname" placeholder="Title"> <br>
-				<input type="radio" id="private" name="privacy" value="true" checked>Private<br>
-				<input type="radio" id="public" name="privacy" value="false">Public
+				<input type="text" id="classname" name="classname" placeholder="Title"> <br>
+				<div class="buttons">
+					<input type="radio" id="private" name="privacy" value="true" checked>Private<br>
+					<input type="radio" id="public" name="privacy" value="false">Public
+				</div>
 				<input type="submit" id="enter" value="Create Class">
 			</form>
 		</div>
