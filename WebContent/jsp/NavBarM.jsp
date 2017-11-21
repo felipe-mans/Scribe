@@ -28,6 +28,7 @@
 				var classId = document.getElementById("classId").innerHTML;
 				var userId = document.getElementById("userId").innerHTML;
 				socket.send(classId + " " + userId + " " + uname + ": " + document.discussionBoard.message.value);
+				document.getElementByName("message").value = "";
 				return false;
 			}
 			function sendRequest() {
