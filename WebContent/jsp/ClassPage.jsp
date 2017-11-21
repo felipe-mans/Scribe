@@ -15,7 +15,7 @@ if(true) {%>
 	<body> -->
 		<noscript id ="username"><%=currUser.getUsername()%></noscript>
 		<noscript id ="userId"><%=currUser.getUserID()%></noscript>
-		<noscript id ="classId"><%=currClass.getClassId()%></noscript>
+		<noscript id ="classId"><%=currClass.getClassID()%></noscript>
 	
 		<div class="box" id="title-bar">
 			<div class = "logo">
