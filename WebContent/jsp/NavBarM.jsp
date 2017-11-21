@@ -24,7 +24,7 @@
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
 				socket.onopen = function(event) {}
 				socket.onmessage = function(event) {
-					document.getElementById("discussion").innerHTML += event.data + "<br />";
+					document.getElementById("discussion-menu").innerHTML += event.data + "<br />";
 				}
 				socket.onclose = function(event) {}
 			}

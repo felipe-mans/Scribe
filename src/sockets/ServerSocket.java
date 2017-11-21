@@ -41,6 +41,7 @@ public class ServerSocket {
 			JDBCQuery.addRequest(Integer.parseInt(userId), Integer.parseInt(classId));
 			message = request[3] + " " + request[4];
 		}
+		System.out.println("Sending message: " + message);
 		try {
 			for(Session s : sessionVector) {
 				s.getBasicRemote().sendText(message);
