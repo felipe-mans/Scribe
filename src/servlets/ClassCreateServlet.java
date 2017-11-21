@@ -40,11 +40,8 @@ public class ClassCreateServlet extends HttpServlet{
 		else{
 			JDBCQuery.addClass(classname, isPrivate);
 			int classID = JDBCQuery.getClassFromClassname(classname).getClassID();
-			System.out.println(classID);
 			int userID = ((User)request.getSession().getAttribute("currUser")).getUserID();
-			System.out.println(userID);
 			JDBCQuery.addEnrollment(classID, userID);
-			System.out.println(JDBCQuery.isUserEnrolledInClass(classID, userID));
 			response.sendRedirect("jsp/MemberPage.jsp");
 		}
 	}
