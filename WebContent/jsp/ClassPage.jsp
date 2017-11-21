@@ -53,7 +53,7 @@ if(signedIn) {%>
 				<%
 					Vector<User> requests = JDBCQuery.getUsersWithRequests(currClass.getClassID());
 					for(int i = requests.size() - 1; i >=0; i--) { %>
-						<%=requests.get(i).getUsername()%> has requested to join this group! <noscript id="requestName"><%=requests.get(i).getUsername()%></noscript><noscript id="requestId"><%=requests.get(i).getUserID()%></noscript><button class="button" id="acceptButton" onclick="acceptRequest()">Accept</button><br />
+						<p><%=requests.get(i).getUsername()%> has requested to join this group! <noscript id="requestName"><%=requests.get(i).getUsername()%></noscript><noscript id="requestId"><%=requests.get(i).getUserID()%></noscript><button class="button" id="acceptButton" onclick="acceptRequest()">Accept</button></p>
 				<%	}
 					Vector<ClassMessage> classMessages = JDBCQuery.getMessagesFromClass(currClass.getClassID());
 					for(int i = classMessages.size()-1; i >= 0; i--)
