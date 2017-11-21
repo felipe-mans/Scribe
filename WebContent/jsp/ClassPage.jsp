@@ -49,9 +49,8 @@ if(signedIn) {%>
 					Vector<ClassMessage> classMessages = JDBCQuery.getMessagesFromClass(currClass.getClassID());
 					for(int i = classMessages.size()-1; i >= 0; i--)
 					{
-						String poster = JDBCQuery.getUserByUserID(classMessages.get(i).getUserID()).getUsername();
 				%>
-					<p><%=poster%>: <%=classMessages.get(i).getContent()%></p>
+					<p><%=classMessages.get(i).getContent()%></p>
 				<%
 					}
 				%>
