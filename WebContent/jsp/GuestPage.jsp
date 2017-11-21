@@ -9,7 +9,8 @@ request.getSession().setAttribute("signedIn", false);
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-		<h1>Welcome to Scribe!</h1>
+		<div class="backdrop">
+		<p id="welcome">Welcome to Scribe!</p>
 		<h3>Sign up today to:</h3>
 		<ul>
 			<li>Join class groups</li>
@@ -18,5 +19,6 @@ request.getSession().setAttribute("signedIn", false);
 			<li>Keep your classes organized</li>
 			<li>Improve your grades!</li>
 		</ul>
+		</div>
 	</body>
 </html>
