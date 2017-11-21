@@ -4,6 +4,7 @@
 <%
 boolean signedIn = (boolean)request.getSession().getAttribute("signedIn");
 User currUser = (User)request.getSession().getAttribute("currUser");
+Classroom currClass = (Classroom)request.getSession().getAttribute("currClass");
 if(true) {%>
 	<%@include file="NavBarM.jsp"%>
 <%} else {%>
@@ -29,7 +30,7 @@ if(true) {%>
 			</div>
 			<div class="vertical-menu" id="classes-menu">
 				<%
-					Vector<User> students = JDBCQuery.getUserEnrolledINClass(currClass.getClassID());
+					Vector<User> students = JDBCQuery.getUsersEnrolledInClass(currClass.getClassID());
 				
 					for(User student:students)
 					{
@@ -47,7 +48,7 @@ if(true) {%>
 			</div>
 			<div class="vertical-menu" id="discussion-menu">
 				<%
-					Vector<ClassMessage> classMessages = JDBCQuery.getMessageFromClass(currClas.getClassID());
+					Vector<ClassMessage> classMessages = JDBCQuery.getMessagesFromClass(currClass.getClassID());
 				
 					for(ClassMessage message:classMessages)
 					{
