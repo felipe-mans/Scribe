@@ -74,6 +74,16 @@ h1 {
 	width: 10%;
 }
 
+#discussionBox {
+   color: transparent;
+   text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#documentList {
+   color: transparent;
+   text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
 #searchBox {
     width: 50%;
     box-sizing: border-box;

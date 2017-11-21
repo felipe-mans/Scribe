@@ -5,7 +5,7 @@
 boolean signedIn = (boolean)request.getSession().getAttribute("signedIn");
 User currUser = (User)request.getSession().getAttribute("currUser");
 Classroom currClass = (Classroom)request.getSession().getAttribute("currClass");
-if(true) {%>
+if(signedIn) {%>
 	<%@include file="NavBarM.jsp"%>
 <%} else {%>
 	<%@include file="NavBarG.jsp"%>
