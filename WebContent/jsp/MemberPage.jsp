@@ -42,7 +42,7 @@
 					for(UserDocument document:myDocuments) {
 				%>
 					<div class="<%=document.getExtension()%>">
-					
+						<p><a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a></p>
 					</div>
 				<% 
 					}

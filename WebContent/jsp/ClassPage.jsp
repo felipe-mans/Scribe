@@ -81,7 +81,6 @@ if(signedIn) {%>
 			<div class="vertical-menu" id="documents-menu">
 				<%
 					Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
-				
 					for(UserDocument document:classDocuments)
 					{
 						String ext = document.getExtension();
@@ -91,6 +90,9 @@ if(signedIn) {%>
 						if(ext.equals("mp4")) {
 				%> <video width="250" controls> <source src="<%document.getName();%>" type="video/mp4"></audio>			
 						<%}
+						if(ext.equals("pdf")) { %>
+							<a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a>
+					<%}
 					}
 				%>
 			</div>

@@ -1,19 +1,20 @@
 package databaseObjects;
 
-import java.io.File;
+import java.sql.Blob;
 
 public class UserDocument {
 
 	private int docID;
 	private String mName;
-	private File mFile;
+	private Blob blob;
 
-	public UserDocument(int docID, String name, File file) {
+	public UserDocument(int docID, String name, Blob blob) {
 		this.mName = name;
-		this.mFile = file;
+		this.blob = blob;
+		this.docID = docID;
 	}
 
-	public int getDodID() {
+	public int getDocID() {
 		return this.docID;
 	}
 
@@ -21,8 +22,8 @@ public class UserDocument {
 		return this.mName;
 	}
 
-	public File getFile() {
-		return this.mFile;
+	public Blob getBlob() {
+		return this.blob;
 	}
 	
 	public String getExtension() {
