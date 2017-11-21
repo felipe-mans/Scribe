@@ -17,7 +17,7 @@
 					Vector<Classroom> myClasses = JDBCQuery.getUserEnrollments(currUser.getUserID());
 					for(Classroom classroom:myClasses) {
 				%>
-					<form action="/GoToClassServlet">
+					<form action="${pageContext.request.contextPath}/GoToClassServlet">
 						<%=classroom.getClassname()%>
 						<input type="text" name="classroom" value=<%=classroom.getClassname()%>> <!-- need to hide this field -->
 						<input type="submit" name="submit"/>
