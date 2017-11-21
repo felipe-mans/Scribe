@@ -24,7 +24,7 @@
 		<div class="formBackground" id="formBox">	
 			<div class="formContent" id="loginForm">
 				<form class="form" action="${pageContext.request.contextPath}/LoginServlet">
-					<h4>Login to your account</h4> <br>
+					<p id="formTitle">Login to your account</p> <br>
 					<input id="username" name="username" placeholder="Username" type="text" class="text"> <br>
 					<input id="password" name="password" placeholder="Password" type="password" class="text"> <br><br>
 					<input id="enter" type="submit" value="Sign in">
@@ -32,7 +32,7 @@
 			</div>
 			<div class="formContent" id="registerForm">
 				<form class="form" action="${pageContext.request.contextPath}/SignUpServlet">
-					<h4>Sign up for an account</h4>
+					<p id="formTitle">Sign up for an account</p> <br>
 					<input id="fname" name="fname" placeholder="First Name" type="text" class="text"> <br>
 					<input id="lname" name="lname" placeholder="Last Name" type="text" class="text"> <br>
 					<input id="username" name="username" placeholder="Username" type="text" class="text"> <br>
