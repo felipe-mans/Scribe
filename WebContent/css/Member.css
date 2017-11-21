@@ -1,56 +1,69 @@
 @CHARSET "UTF-8";
 
+@font-face {
+	font-family: Hitchhiker;
+	src: url(../fonts/Hitchhiker.ttf);
+}
+
+@font-face {
+	font-family: Centaur;
+	src: url(../fonts/CENTAUR.ttf);
+}
+
 h1, h2, h3, h4 {
 	text-align: center;
 	length: 100%;
 }
 
 .navBarDiv {
-	width: 60%;
+	margin: auto;
+	width: 61.45%;
 }
 
 .right {
 	float: right;
-	width: 45%;
+	width: 50%;
 }
 
 .left {
 	float: left;
-	width: 45%;
+	width: 15%;
 }
 
 .logOut {
 	float: right;
-	width: 15%;
+	width: 20%;
 }
 
 .homepage {
 	float: right;
-	width: 15%;
+	width: 20%;
 }
 
 .addClass {
 	float: right;
-	width: 15%;
+	width: 25%;
 }
 
 
 #searchBox {
-    width: 35%;
+    width: 50%;
     /*box-sizing: border-box;
     border-radius: 4px;*/
-    font-size: 25px;
-    background-color: #333;
+    border: none;
+    font-size: 16px;
+    background-color: #fffef7;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 20px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-    color: white;
+    color: black;
 }
 
 #searchBox:focus {
-    width: 55%;
+    width: 75%;
+    border: solid #333;
 }
 
 #navBar {
@@ -58,19 +71,19 @@ h1, h2, h3, h4 {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #fffef7;
 }
 
 #navBarRight a, #navBarLeft a {
 	display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 #navBarRight a:hover, #navBarLeft a:hover {
-	background-color: #111;
+	background-color: #fcf9e3;
 }
 
 .text {

@@ -7,3 +7,71 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+
+#classPageWelcome {
+	font-family: Hitchhiker;
+	font-size: 45px;
+	text-align: center;
+	top: 5px;
+}
+
+#cpBackdrop {
+	margin: auto;
+	width: 60%;
+	height: 87vh;
+	background-color: #fcf9e3;
+	position: relative;
+	border: 12px solid #fffef7;
+}
+
+#classes {
+	height: 70%;
+}
+
+#documents {
+	height: 70%;
+}
+
+#classesHeader {
+	font-family: Hitchhiker;
+	font-size: 20px;
+	text-align: center;
+	
+}
+
+#documentsHeader {
+	font-family: Hitchhiker;
+	font-size: 20px;
+	text-align: center;
+}
+
+#classItem {
+	font-family: Centaur;
+	font-size: 15px;
+	text-align:center;
+}
+
+#classHide {
+	display: none;
+}
+
+#classButton {
+	font-family: Centaur;
+	background-color: Transparent;
+	border: none;
+	width: 60%;
+	text-align: center;
+	font-size: 25px;
+}
+
+#enroll {
+	font-family: Hitchhiker;
+	background-color: Transparent;
+	border: none;
+	text-align: center;
+	font-size: 28px;
+	position: absolute;
+	
+	bottom: 0;
+	
+}
