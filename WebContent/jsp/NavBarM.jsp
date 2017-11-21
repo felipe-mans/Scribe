@@ -31,7 +31,7 @@
 				return false;
 			}
 			function sendRequest() {
-				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "<button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
+				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "</noscript><button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
 			}
 			function acceptRequest(u_name, user_Id) {
 				socket.send("ACCEPT " + document.getElementById("requestName") + " " + classId+ " " + document.getElementById("requestId"));
