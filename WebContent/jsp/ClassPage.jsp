@@ -97,8 +97,12 @@ if(signedIn) {%>
 		<script>document.getElementById("requestButton").style.display="none";</script>
 		
 		<%
-			if(/*class is private and user is not in the class and user is not a guest*/ true) { %>
+			if(/*class is private and user is not in the class and user is not a guest*/ true) 
+			{ 
+		%>
 			<script>document.getElementById("requestButton").style.display="inline";</script>
-		<%}%>
+		<%
+			}
+		%>
 	</body>
 </html>
