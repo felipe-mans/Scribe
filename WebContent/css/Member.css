@@ -126,9 +126,55 @@ textarea {
 	height: 40%;
 	margin-top: 10%;
 	margin-left: 40%;
-	border: 1px solid black;
+	border: 1px solid white;
 	padding: 5px;
-	background-color: #80b3ff;
+	background-color: #fcf9e3;
+}
+
+.formTitle {
+	width: 100%;
+	height: 60%;
+	display: block;
+}
+
+.letter {
+	position: relative;
+	font-family: Hitchhiker;
+	font-size: 72px;
+	height: 75%;
+	display: block;
+	text-align: center;
+	top: 25%;
+	left: -5%;
+}
+
+.words {
+	font-family: Centaur;
+	display: block;
+	text-align: center;
+	font-size: 24px;
+}
+
+.form {
+	width: 100%;
+	height: 40%;
+	display: block;
+}
+
+#classname {
+	display block;
+}
+
+.buttons {
+	margin: 6px;
+	display: block;
+}
+
+#enter {
+	position: relative;
+	display: block;
+	left: 32%;
+	width: 40%;
 }
 
 .classes {
