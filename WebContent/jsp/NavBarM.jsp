@@ -23,15 +23,15 @@
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/Scribe/discussion");
 				socket.onmessage = function(event) {
-					document.getElementById("discussion-menu").innerHTML += event.data + "<br />";
+					document.getElementById("discussion-menu").innerHTML = event.data + "<br />" + document.getElementById("discussion-menu").innerHTML;
 				}
 			}
 			function sendMessage() {
-				socket.send(document.discussionBoard.message.value);
+				socket.send(classId + " " + userId + " " + username + ": " + document.discussionBoard.message.value);
 				return false;
 			}
 			function sendRequest() {
-				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "<button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
+				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "</noscript><button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
 			}
 			function acceptRequest(u_name, user_Id) {
 				socket.send("ACCEPT " + document.getElementById("requestName") + " " + classId+ " " + document.getElementById("requestId"));

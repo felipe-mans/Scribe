@@ -1,8 +1,11 @@
 @charset "UTF-8";
 
-@font-face {
-	font-family: "Hitchhiker";
-	src: url("/WebContent/fonts/Hitchhiker.ttf");
+html { 
+  background: url(../imgs/Parchment.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .box {
@@ -10,14 +13,64 @@
 	padding: 5px;
 }
 
+#search-list {
+	position:absolute;
+	width: 60%;
+	height: 86%;
+	left: 49.65%;
+	transform: translate(-50%, 0);
+	background-color: #fcf9e3;
+}
+
 #search-title {
 	font-family: "Hitchhiker";
 	font-weight: bold;
-	border-bottom: 4px solid black;
+	font-size: 24px;
+	text-align: center;
+	border-bottom: 2px solid black;
+	padding: 10px;
+	height: 5%;
 }
 
 #search-menu {
+	font-family: Centaur;
 	margin: 10px;
+	height: 55%;
+}
+
+#searchItem {
+	height: auto;
+}
+
+#classname {
+	font-size: 20px;
+	width: 60%;
+	display: inline-block;
+}
+
+#classButton {
+	font-family: Centaur;
+	background-color: Transparent;
+	border: none;
+	width: 60%;
+	text-align: center;
+	font-size: 50px;
+}
+
+#privacy {
+	width: 41%;
+	text-align: center;
+}
+
+#members {
+	/*float: right;*/
+	/*display: inline-block;*/
+	width: 36%;
+	text-align: center;
+}
+
+#go-to-class {
+	display: inline-block;
 }
 
 .hidden {

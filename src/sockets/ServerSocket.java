@@ -27,21 +27,26 @@ public class ServerSocket {
 	public void onMessage(String message, Session session) {
 		System.out.println(message);
 		if(message.startsWith("ACCEPT")) {
-			String[] request = message.split(" ");
-			String uname = request[1];
-			String classId = request[2];
-			String userId = request[3];
+			String[] accept = message.split(" ");
+			String uname = accept[1];
+			String classId = accept[2];
+			String userId = accept[3];
 			JDBCQuery.addEnrollment(Integer.parseInt(classId), Integer.parseInt(userId));
 			JDBCQuery.updateRequest(Integer.parseInt(classId), Integer.parseInt(userId));
 			message = uname + " has joined the class!";
 		} else if(message.startsWith("REQUEST")) {
-			String[] request = message.split(" ", 5);
+			String[] request = message.split(" ", 4);
 			String classId = request[1];
 			String userId = request[2];
 			JDBCQuery.addRequest(Integer.parseInt(userId), Integer.parseInt(classId));
 			message = request[3] + " " + request[4];
+		} else {
+			String[] msg = message.split(" ", 3);
+			String classID = msg[0];
+			String userID = msg[1];
+			message = msg[2];
+			JDBCQuery.addMessage(Integer.parseInt(classID), Integer.parseInt(userID), 0, message);
 		}
-		System.out.println("Sending message: " + message);
 		try {
 			for(Session s : sessionVector) {
 				s.getBasicRemote().sendText(message);

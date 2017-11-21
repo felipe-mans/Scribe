@@ -48,12 +48,16 @@ if(signedIn) {%>
 			<p id="discussionTitle"> Discussion </p> <hr />
 			<div class="vertical-menu" id="discussion-menu">
 				<%
+					Vector<User> requests = JDBCQuery.getUsersWithRequests(currClass.getClassID());
+					for(int i = requests.size() - 1; i >=0; i--) { %>
+						<p><%=requests.get(i).getUsername()%> has requested to join this group! <noscript id="requestName"><%=requests.get(i).getUsername()%></noscript><noscript id="requestId"><%=requests.get(i).getUserID()%></noscript><button class="button" id="acceptButton" onclick="acceptRequest()">Accept</button></p>
+				<%	}
 					Vector<ClassMessage> classMessages = JDBCQuery.getMessagesFromClass(currClass.getClassID());
-				
-					for(ClassMessage message:classMessages)
+					for(int i = classMessages.size()-1; i >= 0; i--)
 					{
+						String poster = JDBCQuery.getUserByUserID(classMessages.get(i).getUserID()).getUsername();
 				%>
-					
+					<p><%=poster%>: <%=classMessages.get(i).getContent()%></p>
 				<%
 					}
 				%>
