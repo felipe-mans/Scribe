@@ -38,7 +38,7 @@
 				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <noscript id=\"requestName\">" + uname + "</noscript><noscript id=\"requestId\">" + userId + "</noscript><button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest()\">Accept</button>");
 			}
 			function acceptRequest(u_name, user_Id) {
-				socket.send("ACCEPT " + document.getElementById("requestName").innerHTML + " " + classId+ " " + document.getElementById("requestId").innerHTML);
+				socket.send("ACCEPT " + document.getElementById("requestName").innerHTML + " " + classId + " " + document.getElementById("requestId").innerHTML);
 				acceptButton.disabled = true;
 			}
 		</script>
