@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "Hitchhiker";
+	src: url("/WebContent/fonts/Hitchhiker.ttf");
+}
+
+.box {
+	margin: 5px;
+	padding: 5px;
+}
+
+#search-title {
+	font-family: "Hitchhiker";
+	font-weight: bold;
+	border-bottom: 4px solid black;
+}
+
+#search-menu {
+	margin: 10px;
+}
+
+.hidden {
+	display: none;
+}
