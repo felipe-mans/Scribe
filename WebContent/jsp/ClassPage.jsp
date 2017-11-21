@@ -63,7 +63,7 @@ if(signedIn) {%>
 				%>
 			</div>
 			<form name="discussionBoard" onsubmit="return sendMessage();">
-				<input type="text" name="message" value="Type Here!" /><br />
+				<input type="text" name="message" placeholder="Type Here!" /><br />
 				<input type="submit" name="submit" value="Send Message" />
 			</form>
 		</div>
