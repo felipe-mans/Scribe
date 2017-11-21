@@ -25,6 +25,9 @@ public class UserDocument {
 		return this.mFile;
 	}
 	
-	
+	public String getExtension() {
+		String[] parts = mName.split("\\.");
+		return parts[parts.length - 1];
+	}
 
 }
