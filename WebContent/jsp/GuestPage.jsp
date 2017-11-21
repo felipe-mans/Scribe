@@ -11,7 +11,9 @@ request.getSession().setAttribute("signedIn", false);
 	<body> -->
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/GuestPage.css">
 		<div class="backdrop">
+		<div class="welcomeSection">
 		<p id="welcome">Welcome to Scribe!</p>
+		</div>
 		<h3>Sign up today to:</h3>
 		<ul>
 			<li>Join class groups</li>

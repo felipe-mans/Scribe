@@ -16,8 +16,12 @@ body {
 	
 }
 
+.welcomeSection {
+	margin: auto;
+	text-align: center;
+}
+
 #welcome {
 	font-size: 55px;
 	font-family: Hitchhiker;
-	
 }
