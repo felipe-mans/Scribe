@@ -17,7 +17,6 @@
 	<body>
 		<%  
             String id = request.getParameter("id");
-			System.out.println(id);
             Blob blob = null;
             byte[ ] fileData = null;
             try
