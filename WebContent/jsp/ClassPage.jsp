@@ -12,20 +12,82 @@ if(true) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-		<noscript id ="username"><%=currUser.getUsername()%></noscript>
-		<div class = "titleBar">
+		<div class="box" id="title-bar">
 			<div class = "logo">
 			</div>
 			<div class = "welcome">
-				<h1>Welcome to <%= request.getParameter("title")%></h1>
+				<h1>Welcome to <%= currClass.getClassname()%></h1>
 			</div>
 			<div class = "creator">
 				<h2>Created by: <!-- creator --></h2>
 			</div>
 		</div>
+			
+		<div class="box" id="members-list">
+			<div class="title" id="members-title">
+				Members
+			</div>
+			<div class="vertical-menu" id="classes-menu">
+				<%
+					Vector<User> students = JDBCQuery.getUserEnrolledINClass(currClass.getClassID());
+				
+					for(User student:students)
+					{
+				%>
+					<p id="classmate"> <%= student.getUsername() %> </p>
+				<%
+					}					
+				%>
+			</div>
+		</div>
+		
+		<div class="box" id="discussion-box">
+			<div class="title" id="discussion-title">
+				Discussion
+			</div>
+			<div class="vertical-menu" id="discussion-menu">
+				<%
+					Vector<ClassMessage> classMessages = JDBCQuery.getMessageFromClass(currClas.getClassID());
+				
+					for(ClassMessage message:classMessages)
+					{
+				%>
+					
+				<%
+					}
+				%>
+			</div>
+			<form name="discussionBoard" onsubmit="return sendMessage();">
+				<input type="text" name="message" value="Type Here!" /><br />
+				<input type="submit" name="submit" value="Send Message" />
+			</form>
+		</div>
+	
+		<div class="box" id="documents-list">
+			<div class="title" id="resources-title">
+				Resources
+			</div>
+			<div class="resourceButton">
+				<form action = "${pageContext.request.contextPath}/FileUploadServlet" method = "POST" enctype = "multipart/form-data">
+					<input type = "file" name = "file"/>
+					<input type = "submit" value = "Upload File" />
+				</form>
+			</div>
+			<div class="vertical-menu" id="documents-menu">
+				<%
+					Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
+				
+					for(UserDocument document:classDocuments)
+					{
+				%>
+				
+				<%
+					}
+				%>
+			</div>
+		</div>
 		
 		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
-		
 			
 		<script>document.getElementById("requestButton").style.display="none";</script>
 		
@@ -33,56 +95,5 @@ if(true) {%>
 			if(/*class is private and user is not in the class and user is not a guest*/ true) { %>
 			<script>document.getElementById("requestButton").style.display="inline";</script>
 		<%}%>
-		
-		<div id="members" class="members">
-			<h3>Members</h3><hr />
-			<% 
-				//boolean isPublic = false; //get this variable from the database
-				//if(isCreator || isPublic) {%>
-				<!-- addMember button -->
-				<%//}%>
-			<ul>
-			<li>This is a test</li>
-			</ul>
-		</div>
-		
-		<form name="discussionBoard" onsubmit="return sendMessage();">
-			<input type="text" name="message" value="Type Here!" /><br />
-			<input type="submit" name="submit" value="Send Message" />
-		</form>
-		
-		<div id="discussion" class="discussion">
-			<h3>Discussion Board</h3><hr />
-			<ul>
-			<li>This is a test</li>
-			</ul>
-		</div>
-	
-		<div id="resources" class="resources">
-			<div class="title">
-			<h3>Resources</h3>
-			</div>
-			<div class="resourceButton">
-			<form action="addResource()">
-			<input type="file" id="fileUpload" name="fileUpload" value="Upload">
-			</form>
-			</div>
-			<hr />
-			<ul>
-			<li>This is a test</li>
-			</ul>
-		</div>
-		<!-- What is this for?
-		<div class = "srButtons">
-			<div class = "sButton">
-			</div>
-			<%
-			boolean isCreator = false; //get this variable from the session
-			if(isCreator) {%>
-			<div class = "rButton">
-			</div>
-			<%}%>
-		</div>
-		-->
 	</body>
 </html>

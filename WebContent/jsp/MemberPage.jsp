@@ -11,17 +11,36 @@
 	
 		<div id="classes" class="classes">
 			<h3>My Classes</h3> <hr />
-			<ul>
-			<li><a href="ClassPage.jsp">This is a test</a></li>
-			</ul>
+			<div class="box" id="classes-list">
+				<div class="vertical-menu" id="classes-menu">
+				<%
+					Vector<Classroom> myClasses = JDBCQuery.getUserEnrollments(currUser.getUserID());
+					for(Classroom classroom:myClasses) {
+				%>
+					<a href="ClassPage.jsp"> <%= classroom.getClassname() %> </a>
+				<% 
+					}
+				%>
+				</div>
+				
+				<a href="Search.jsp">New Class</a>
+			</div>
 		</div>
 		
 		<div id="documents" class="documents">
 			<h3>My Documents</h3> <hr />
-			<ul>
-			<li>This is a test</li>
-			</ul>
+			<div class="box" id="documents-list">
+				<div class="vertical-menu" id="documents-menu">
+				<%
+					Vector<UserDocument> myDocuments = JDBCQuery.getUserDocuments(currUser.getUserID());
+					for(UserDocument document:myDocuments) {
+				%>
+					
+				<% 
+					}
+				%>
+				</div>
+			</div>
 		</div>
-	
 	</body>
 </html>
