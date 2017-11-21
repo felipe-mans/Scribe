@@ -27,7 +27,7 @@
 				}
 			}
 			function sendMessage() {
-				socket.send(document.discussionBoard.message.value);
+				socket.send(classId + " " + userId + " " + username + ": " + document.discussionBoard.message.value);
 				return false;
 			}
 			function sendRequest() {
