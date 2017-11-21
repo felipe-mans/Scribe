@@ -68,7 +68,7 @@ if(true) {%>
 				Resources
 			</div>
 			<div class="resourceButton">
-				<form action = "${pageContext.request.contextPath}/FileUploadServlet" method = "POST" enctype = "multipart/form-data">
+				<form action="${pageContext.request.contextPath}/FileUploadServlet" method="POST" enctype="multipart/form-data" accept="mp3, mp4, docx">
 					<input type = "file" name = "file"/>
 					<input type = "submit" value = "Upload File" />
 				</form>
