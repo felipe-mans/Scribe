@@ -23,15 +23,15 @@ body {
 }
 
 #creator {
-	font-size: 30px;
+	font-size: 20px;
 	font-family: Hitchhiker;
 	text-align: center;
 }
 
 #membersList {
-	height: 70%;
+	height: 60%;
 	width: 20%;
-	margin-left: 5%;
+	margin-left: 2%;
 	position: relative;
 	border: 1px solid black;
 }
@@ -43,7 +43,7 @@ body {
 }
 
 #discussionBox {
-	height: 70%;
+	height: 60%;
 	width: 30%;
 	border: 1px solid black;
 }
@@ -55,7 +55,7 @@ body {
 }
 
 #documentsList {
-	height: 70%;
+	height: 60%;
 	width: 30%;
 	border: 1px solid black;
 }
