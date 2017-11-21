@@ -24,7 +24,7 @@
             	UserDocument doc = JDBCQuery.getDocumentFromID(Integer.parseInt(id));
             	switch(doc.getExtension())
             	{
-            		case "mp4": response.setContentType("video/mpeg");
+            		case "mp4": response.setContentType("video/mp4");
             			break;
             		case "mp3": response.setContentType("audio/mpeg");
             			break;
