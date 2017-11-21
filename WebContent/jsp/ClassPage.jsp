@@ -84,9 +84,13 @@ if(signedIn) {%>
 				
 					for(UserDocument document:classDocuments)
 					{
-				%>
-				
-				<%
+						String ext = document.getExtension();
+						if(ext.equals("mp3")) {							
+				%> <audio controls> <source src="<%document.getName();%>" type="audio/mpeg"></audio> 
+						<%}
+						if(ext.equals("mp4")) {
+				%> <video width="250" controls> <source src="<%document.getName();%>" type="video/mp4"></audio>			
+						<%}
 					}
 				%>
 			</div>
