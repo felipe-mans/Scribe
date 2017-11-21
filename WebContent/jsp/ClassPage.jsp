@@ -13,9 +13,9 @@ if(signedIn) {%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
 	<body> -->
-		<noscript id ="username"><%=currUser.getUsername()%></noscript>
-		<noscript id ="userId"><%=currUser.getUserID()%></noscript>
-		<noscript id ="classId"><%=currClass.getClassID()%></noscript>
+		<noscript id="username"><%=currUser.getUsername()%></noscript>
+		<noscript id="userId"><%=currUser.getUserID()%></noscript>
+		<noscript id="classId"><%=currClass.getClassID()%></noscript>
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClassPage.css">
 	
@@ -49,9 +49,8 @@ if(signedIn) {%>
 					Vector<ClassMessage> classMessages = JDBCQuery.getMessagesFromClass(currClass.getClassID());
 					for(int i = classMessages.size()-1; i >= 0; i--)
 					{
-						String poster = JDBCQuery.getUserByUserID(classMessages.get(i).getUserID()).getUsername();
 				%>
-					<p><%=poster%>: <%=classMessages.get(i).getContent()%></p>
+					<p><%=classMessages.get(i).getContent()%></p>
 				<%
 					}
 				%>
