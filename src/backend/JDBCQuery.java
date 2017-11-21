@@ -49,9 +49,9 @@ public class JDBCQuery {
 	private final static String getDocumentByDocumentID = "SELECT * FROM Documents WHERE docID=?";
 
 	// Enrollments
-	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollments WHERE classID=?";
-	private final static String getUserEnrollments = "SELECT * FROM Enrollments WHERE userID=?";
-	private final static String getUserInClass = "SELECT * FROM Enrollments WHERE classID=? AND userID=?";
+	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollment WHERE classID=?";
+	private final static String getUserEnrollments = "SELECT * FROM Enrollment WHERE userID=?";
+	private final static String getUserInClass = "SELECT * FROM Enrollment WHERE classID=? AND userID=?";
 
 	// Uploads
 	private final static String getClassUploads = "SELECT * FROM Uploads WHERE classID=?";
@@ -75,7 +75,7 @@ public class JDBCQuery {
 	private final static String addDocument = "INSERT INTO Documents(userID, documentname, file) VALUES(?, ?, ?)";
 
 	// Enrollments
-	private final static String addEnrollment = "INSERT INTO Enrollments(classID, userID) VALUES(?, ?)";
+	private final static String addEnrollment = "INSERT INTO Enrollment(classID, userID) VALUES(?, ?)";
 
 	// Uploads
 	private final static String addUpload = "INSERT INTO Uploads(classID, docID) VALUES(?, ?)";

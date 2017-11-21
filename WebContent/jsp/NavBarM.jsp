@@ -67,13 +67,12 @@
 	</div>
 	<div class="formBackground" id="formBox">
 		<div class="formContent" id="newClassForm">
-			<form class="form" id="addClassform" action="ClassPage.jsp">
+			<form class="form" id="addClassform" action="${pageContext.request.contextPath}/ClassCreateServlet">
 				<h4>Create a New Class</h4> <br>
-				<input id="public" name="public" type="radio">Public
-				<input id="private" name="private" type="radio">Private<br><br>
-				<input id="Title" name="title" placeholder="Title" type="text" class="text"> <br>
-				<textarea id="inviteMembers" name="inviteMembers" placeholder="Invite Members by Email" form="addClassForm"></textarea><br><br>
-				<input id="enter" type="submit" value="Create Class">
+				<input type="text" name="classname" placeholder="Title"> <br>
+				<input type="radio" id="private" name="privacy" value="true" checked>Private<br>
+				<input type="radio" id="public" name="privacy" value="false">Public
+				<input type="submit" id="enter" value="Create Class">
 			</form>
 		</div>
 	</div>
