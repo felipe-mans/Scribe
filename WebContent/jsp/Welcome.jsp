@@ -12,6 +12,15 @@
 		<!-- <script type="text/javascript" src="./js/test.js"></script> -->
 	</head>
 	<body>
+	<div class="backdrop" id="backdrop">
+		<div class="box" id="welcomeSection">
+			<p id="welcome">Welcome to Scribe</p>	
+		</div>
+		
+		<div class="logo" id= "logo">
+			<img id="s" src="../imgs/ScribeLogo.png">
+		</div>
+		
 		<div class="formBackground" id="formBox">	
 			<div class="formContent" id="loginForm">
 				<form class="form" action="${pageContext.request.contextPath}/LoginServlet">
@@ -33,22 +42,24 @@
 				</form>
 			</div>
 		</div>
-		<div class="box" id="welcomeSection">
-			<div class="bar" id="welcomeTitle">
-				<h1>Welcome to Scribe</h1>
-			</div>	
-		</div>
 		<div class="bar" id="buttonSection">
-			<div class="box" id="message">
+			<div class="letters">
+			<ul class="list" id="letterList">
+			<li id="letter"><button class="letter" id="G">G</li>
+			<li id="letter"><button class="letter" id="L">L</li>
+			<li id="letter"><button class="letter" id="S">S</li>
+			</ul>
 			</div>
-			<div class="box" id="buttons">
-				<ul class="list" id="buttonList">
-				<li id="button"><button class="button" id="guestButton">Continue as Guest</button></li>
-				<li id="button"><button class="button" id="loginButton">Login</button></li>
-				<li id="button"><button class="button" id="registerButton">Sign Up</button></li>
-				</ul>
+			<div class="buttons">
+			<ul class="list" id="buttonList">
+			<li id="button"><button class="button" id="guestButton">Guest</button></li>
+			<li id="button"><button class="button" id="loginButton">Login</button></li>
+			<li id="button"><button class="button" id="registerButton">Sign Up</button></li>
+			</ul>
 			</div>
 		</div>
+		
+	</div>
 		<script>
 		//Divs
 		var formBox = document.getElementById("formBox");

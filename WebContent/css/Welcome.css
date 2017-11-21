@@ -1,13 +1,22 @@
 @CHARSET "ISO-8859-1";
-body{
-	/*set background color */
-	background-image: url('../imgs/Parchment.jpg');
-	height: 100%;
-	
-	background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-	
+
+@font-face {
+	font-family: Hitchhiker;
+	src: url(../fonts/Hitchhiker.ttf);
+}
+
+@font-face {
+	font-family: Centaur;
+	src: url(../fonts/CENTAUR.ttf);
+}
+
+
+html { 
+  background: url(../imgs/Parchment.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 h1, h4 {
@@ -20,13 +29,23 @@ p {
 	length: 100%;
 }
 
+.backdrop {
+	margin: auto;
+	width: 60%;
+	height: 95vh;
+	background-color: #fcf9e3;
+	position: relative;
+	border: 12px solid #fffef7;
+	
+}
+
 .text {
 	line-height: 2em;
 	width: 50%;
 }
 
 #enter {
-	width: 20%;
+	width: 30%;
 }
 
 .form {
@@ -35,95 +54,137 @@ p {
 
 .formBackground {
 	display: none;
-    position: fixed; 
     z-index: 1;
     width: 100%;
     height: 100%; 
     background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
 }
 
 .formContent {
 	display: none;
+	margin: 10% auto;
 	width: 20%;
 	height: 40%;
-	margin-top: 10%;
-	margin-left: 40%;
 	border: 1px solid black;
 	padding: 5px;
 	background-color: #80b3ff;
 }
 
-.bar {
-	/*set color of top and bottom bars*/
-}
-
 .button {
+	font-family: Centaur;
 	display: inline-block;
 	padding: 15px 25px;
-	font-size: 24px;
+	font-size: 33px;
 	cursor: pointer;
 	text-align: center;
 	text-decoration: none;
 	outline: none;
-	color: #fff;
-	background-color: #3465a4;
+	color: #000000;
+	background-color: Transparent;
 	border: none;
 	border-radius: 15px;
-	box-shadow: 0 9px #999;
+	width: 180px;
 }
 
 .button:hover {
-	background-color: #729fcf;
+	
+	/* border: 1px solid black */;
+	font-size: 40px;
+	color: red;
+}
+
+#s {
+	width: 300px;
+	height: 300px;
 }
 
 .button:active {
-  background-color: #729fcf;
+  background-color: #63041c;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+  color: white;
 }
 
 #welcomeSection {
 	margin: auto;
-	position: absolute;
-	top: 0;
-	width: 99%;
-	height: 10%;
+	text-align: center;
 }
 
-#welcomeTitle {
-	margin: auto;
-	text-align: center;
+#welcome {
+	font-size: 55px;
+	font-family: Hitchhiker;
+	
+}
+
+.logo {
+	margin:auto;
+	text-align:center;
 }
 
 #buttonSection {
 	margin: auto;
-	position: absolute;
-	bottom: 0;
-	width: 99%;
+	text-align: center;
+	width: 100%;
 	height: 30%;
+	bottom: 0;
+	position: absolute;
 }
 
-#message {
-	position: relative;
-	margin: auto;
-	height: 50%;
+.letters {
+	marging-left: 50%;;
 	text-align: center;
+	width: 100;
+	height: 50%;
+	top: 0;
+	position: absolute;
 }
 
-#buttons {
+.buttons {
 	margin: auto;
-	height: 50%;
-	position: relative;
 	text-align: center;
+	width: 100%;
+	height: 50%;
+	bottom: 0;
+	position: absolute;
 }
+
 
 #buttonList {
 	list-style-type: none;
 	margin:auto;
-	width: 60%;
+	width: 100%;
+}
+
+#letterList {
+	list-style-type: none;
+	width: 100%;
+	margin-left: 32%;
 }
 
 #button {
 	display: inline;
 	padding: 20px;
+}
+
+#letter {
+	display: inline;
+	padding: 20px;
+}
+
+.letter {
+	font-family: Hitchhiker;
+	display: inline-block;
+	padding: 15px 25px;
+	font-size: 40px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #000000;
+	background-color: Transparent;
+	border: none;
+	border-radius: 15px;
+	width: 150px;
 }
