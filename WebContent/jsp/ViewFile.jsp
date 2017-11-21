@@ -30,6 +30,8 @@
             			break;
             		case "pdf": response.setContentType("application/pdf");
             			break;
+            		case "jpg": response.setContentType("image/gif");
+            			break;
             	}
                 response.setHeader("Content-Disposition", "inline");
                 file = doc.getBlob();
