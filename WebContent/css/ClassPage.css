@@ -15,33 +15,22 @@ body {
 	border: 12px solid #fffef7;	
 }
 
-#titleBar {
-	margin: auto;
-	text-align: center;
-}
-
-.welcome {
-	margin: auto;
-	text-align: center;
-}
-
 #welcome {
-	font-size: 55px;
+	font-size: 45px;
 	font-family: Hitchhiker;
-}
-
-.creator {
-	margin: auto;
 	text-align: center;
+	top: 5px;
 }
 
 #creator {
-	font-size: 45px;
+	font-size: 30px;
 	font-family: Hitchhiker;
+	text-align: center;
 }
 
 #membersList {
 	height: 70%;
+	position: relative;
 }
 
 #membersTitle {
