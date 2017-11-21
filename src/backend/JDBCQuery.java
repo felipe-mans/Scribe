@@ -1,8 +1,5 @@
 package backend;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -47,6 +44,7 @@ public class JDBCQuery {
 	// Documents
 	private final static String getUserDocuments = "SELECT * FROM Documents WHERE userID=?";
 	private final static String getDocumentByDocumentID = "SELECT * FROM Documents WHERE docID=?";
+	private final static String getDocumentByDocumentname = "SELECT * FROM Documents WHERE documentname=?";
 
 	// Enrollments
 	private final static String getUsersEnrolledInClass = "SELECT * FROM Enrollment WHERE classID=?";
@@ -516,6 +514,24 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
+	}
+
+	public static UserDocument getDocumentByDocumentname(String documentname) {
+		connect();
+		try {
+			PreparedStatement ps = conn.prepareStatement(getDocumentByDocumentname);
+			ps.setString(1, documentname);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				Blob blob = result.getBlob("file");
+				return new UserDocument(result.getInt("docID"), documentname, blob);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return null;
 	}
 
 	// TODO
