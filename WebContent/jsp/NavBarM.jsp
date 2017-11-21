@@ -40,8 +40,12 @@
 				var classId = document.getElementById("classId").innerHTML;
 				var acceptButton = document.getElementById("acceptButton");
 				socket.send("ACCEPT " + document.getElementById("requestName").innerHTML + " " + classId + " " + document.getElementById("requestId").innerHTML);
-				acceptButton.disabled = true;
 				location.reload();
+			}
+			function joinClass() {
+				var classId = document.getElementById("classId").innerHTML;
+				var userId = document.getElementById("userId").innerHTML;
+				socket.send("JOIN " + classId + " " + userId);
 			}
 		</script>
 	</head>

@@ -21,7 +21,14 @@ if(signedIn) {%>
 	
 	<div class="backdrop">
 		<p id="welcome">Welcome to <%= currClass.getClassname()%></p>
-		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
+		<%if(!currUser.getUsername().equals("Guest") && !JDBCQuery.isUserEnrolledInClass(currClass.getClassID(), currUser.getUserID())) {
+				if(currClass.isPrivate()) { %>
+					<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
+			<%} else { %>
+				<button onclick="joinClass()" id="joinButton" name="joinButton">Join Class</button>
+			<%}
+			}
+		%>
 		<div class="otherDivs">		
 		<div class="box" id="membersList">
 			<p id="membersTitle">Members</p> <hr />
@@ -63,12 +70,14 @@ if(signedIn) {%>
 	
 		<div class="box" id="documentsList">
 			<p id="documentsTitle">Resources</p> <hr />
+			<%if(JDBCQuery.isUserEnrolledInClass(currClass.getClassID(), currUser.getUserID())) {%>
 			<div class="resourceButton">
 				<form action="${pageContext.request.contextPath}/FileUploadServlet" method="POST" enctype="multipart/form-data" accept="mp3, mp4, docx">
 					<input type = "file" name = "file"/>
 					<input type = "submit" value = "Upload File" />
 				</form>
 			</div>
+			<%}%>
 			<div class="vertical-menu" id="documents-menu">
 				<%
 					if((!currClass.isPrivate() || JDBCQuery.isUserEnrolledInClass(currClass.getClassID(), currUser.getUserID())) && !currUser.getUsername().equals("Guest")) {
