@@ -27,7 +27,7 @@ if(signedIn) {%>
 					<div id="classname">
 						<form action="${pageContext.request.contextPath}/GoToClassServlet">
 							<input type= "text" name="classroom" value=<%=classroom.getClassname()%> class="hidden"/> <!-- need to hide this field -->
-							<input type="submit" name="submit" value=<%=classroom.getClassname()%>></input>
+							<input id= "classButton" type="submit" name="submit" value=<%=classroom.getClassname()%>></input>
 						</form>
 					</div>
 					<div id="members">
@@ -38,11 +38,11 @@ if(signedIn) {%>
 						if(classroom.isPrivate())
 						{
 					%>
-						Private
+						This class is: Private.
 					<%
 						} else {
 					%>
-						Public
+						This class is: Public.
 					<%
 						}
 					%>
