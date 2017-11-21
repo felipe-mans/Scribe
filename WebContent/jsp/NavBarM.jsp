@@ -31,7 +31,7 @@
 				return false;
 			}
 			function sendRequest() {
-				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest(userId, classId)\">Accept</button>");
+				socket.send("REQUEST " + classId + " " + userId + " " + uname + " has requested to join this group! <button class=\"button\" id=\"acceptButton\" onclick=\"acceptRequest(userId, uname)\">Accept</button>");
 			}
 			function acceptRequest(u_name, user_Id) {
 				socket.send("ACCEPT " + u_name + " " + classId+ " " + user_Id);
