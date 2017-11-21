@@ -32,12 +32,12 @@ public class ServerSocket {
 			String classId = request[2];
 			String userId = request[3];
 			JDBCQuery.addEnrollment(Integer.parseInt(classId), Integer.parseInt(userId));
+			JDBCQuery.updateRequest(Integer.parseInt(classId), Integer.parseInt(userId));
 			message = uname + " has joined the class!";
 		} else if(message.startsWith("REQUEST")) {
 			String[] request = message.split(" ", 5);
 			String classId = request[1];
 			String userId = request[2];
-			String uname = request[3];
 			JDBCQuery.addRequest(Integer.parseInt(userId), Integer.parseInt(classId));
 			message = request[3] + " " + request[4];
 		}

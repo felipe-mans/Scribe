@@ -14,6 +14,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Member.css">
 		<script>
 			var socket;
+			var requestButton = document.getElementById("requestButton");
+			var acceptButton = document.getElementById("acceptButton");
 			var requestButton = document.getElementById("addClass");
 			var uname = document.getElementById("username");
 			var classId = document.getElementById("classId");
@@ -35,6 +37,7 @@
 			}
 			function acceptRequest(u_name, user_Id) {
 				socket.send("ACCEPT " + document.getElementById("requestName") + " " + classId+ " " + document.getElementById("requestId"));
+				acceptButton.disabled = true;
 			}
 		</script>
 	</head>
