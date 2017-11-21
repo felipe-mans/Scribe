@@ -6,7 +6,7 @@ h1, h2, h3, h4 {
 }
 
 .navBarDiv {
-	width: 100%;
+	width: 60%;
 }
 
 .right {
@@ -36,10 +36,10 @@ h1, h2, h3, h4 {
 
 
 #searchBox {
-    width: 50%;
-    box-sizing: border-box;
-    border-radius: 4px;
-    font-size: 16px;
+    width: 35%;
+    /*box-sizing: border-box;
+    border-radius: 4px;*/
+    font-size: 25px;
     background-color: #333;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
@@ -50,7 +50,7 @@ h1, h2, h3, h4 {
 }
 
 #searchBox:focus {
-    width: 75%;
+    width: 55%;
 }
 
 #navBar {

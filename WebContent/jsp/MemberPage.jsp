@@ -5,7 +5,9 @@
 <%@include file="NavBarM.jsp"%>
 <!--  the start tags here that are commented out are included in the nav bar JSP's
 <html>
-	<body> -->
+	<body>  -->
+	
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MemberPage.css">
 		
 		<h1>Welcome <%=currUser.getUsername()%></h1>
 	
