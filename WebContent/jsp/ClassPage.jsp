@@ -17,21 +17,14 @@ if(signedIn) {%>
 		<noscript id ="userId"><%=currUser.getUserID()%></noscript>
 		<noscript id ="classId"><%=currClass.getClassID()%></noscript>
 	
-		<div class="box" id="title-bar">
-			<div class = "logo">
-			</div>
-			<div class = "welcome">
-				<h1>Welcome to <%= currClass.getClassname()%></h1>
-			</div>
-			<div class = "creator">
-				<h2>Created by: <!-- creator --></h2>
-			</div>
-		</div>
-			
-		<div class="box" id="members-list">
-			<div class="title" id="members-title">
-				Members
-			</div>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClassPage.css">
+	
+	<div class="backdrop">
+		<p id="welcome">Welcome to <%= currClass.getClassname()%></p>
+		<p id="creator">Created by: <!-- creator --></p>
+				
+		<div class="box" id="membersList">
+			<p id="membersTitle">Members</p> <hr />
 			<div class="vertical-menu" id="classes-menu">
 				<%
 					Vector<User> students = JDBCQuery.getUsersEnrolledInClass(currClass.getClassID());
@@ -45,10 +38,8 @@ if(signedIn) {%>
 			</div>
 		</div>
 		
-		<div class="box" id="discussion-box">
-			<div class="title" id="discussion-title">
-				Discussion
-			</div>
+		<div class="box" id="discussionBox">
+			<p id="discussionTitle"> Discussion </p> <hr />
 			<div class="vertical-menu" id="discussion-menu">
 				<%
 					Vector<User> requests = JDBCQuery.getUsersWithRequests(currClass.getClassID());
@@ -71,10 +62,8 @@ if(signedIn) {%>
 			</form>
 		</div>
 	
-		<div class="box" id="documents-list">
-			<div class="title" id="resources-title">
-				Resources
-			</div>
+		<div class="box" id="documentsList">
+			<p id="documentsTitle">Resources</p> <hr />
 			<div class="resourceButton">
 				<form action="${pageContext.request.contextPath}/FileUploadServlet" method="POST" enctype="multipart/form-data" accept="mp3, mp4, docx">
 					<input type = "file" name = "file"/>
@@ -94,7 +83,8 @@ if(signedIn) {%>
 		</div>
 		
 		<button onclick="sendRequest()" id="requestButton" name="requestButton">Request to Join Class</button>
-			
+		
+		</div>	
 		<script>document.getElementById("requestButton").style.display="none";</script>
 		
 		<%
