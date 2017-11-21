@@ -71,7 +71,6 @@ if(signedIn) {%>
 			<div class="vertical-menu" id="documents-menu">
 				<%
 					Vector<UserDocument> classDocuments = JDBCQuery.getClassUploads(currClass.getClassID());
-					System.out.println(classDocuments.size());
 					for(UserDocument document:classDocuments)
 					{ %>
 						<p><a href="ViewFile.jsp?id=<%=document.getDocID()%>"><%=document.getName()%></a></p>
