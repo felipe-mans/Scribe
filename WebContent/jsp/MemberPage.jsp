@@ -39,7 +39,9 @@
 					Vector<UserDocument> myDocuments = JDBCQuery.getUserDocuments(currUser.getUserID());
 					for(UserDocument document:myDocuments) {
 				%>
+					<div class="<%=document.getExtension()%>">
 					
+					</div>
 				<% 
 					}
 				%>
