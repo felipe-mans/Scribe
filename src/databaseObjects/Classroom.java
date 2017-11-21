@@ -23,4 +23,5 @@ public class Classroom {
 	public boolean isPrivate() {
 		return this.mIsPrivate;
 	}
+	
 }
