@@ -21,7 +21,6 @@ if(signedIn) {%>
 	
 	<div class="backdrop">
 		<p id="welcome">Welcome to <%= currClass.getClassname()%></p>
-		<p id="creator">Created by: <!-- creator --></p>
 		<div class="otherDivs">		
 		<div class="box" id="membersList">
 			<p id="membersTitle">Members</p> <hr />
