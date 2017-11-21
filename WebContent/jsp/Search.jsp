@@ -18,14 +18,20 @@ if(signedIn) {%>
 				Search Results for <%= request.getParameter("search")%>
 			</div>
 			<div class="vertical-list" id="search-menu">
-				<div class="box" id="search-result">
+				<div class="box" id="searchItem">
 				<%
 					Classroom classroom = JDBCQuery.getClassFromClassname(request.getParameter("search"));
 					if(classroom != null)
 					{
 				%>
 					<div id="classname">
-						<%= classroom.getClassname() %>
+						<form action="${pageContext.request.contextPath}/GoToClassServlet">
+							<input type= "text" name="classroom" value=<%=classroom.getClassname()%> class="hidden"/> <!-- need to hide this field -->
+							<input type="submit" name="submit" value=<%=classroom.getClassname()%>></input>
+						</form>
+					</div>
+					<div id="members">
+						Members: <%=JDBCQuery.getUsersEnrolledInClass(classroom.getClassID()).size() %>
 					</div>
 					<div id="privacy">
 					<%
@@ -41,21 +47,8 @@ if(signedIn) {%>
 						}
 					%>
 					</div>
-					<div id="members">
-						Members: <%=JDBCQuery.getUsersEnrolledInClass(classroom.getClassID()).size() %>
-					</div>
-					<div id="go-to-class">
-						<form action="${pageContext.request.contextPath}/GoToClassServlet">
-							<input type= "text" name="classroom" value=<%=classroom.getClassname()%> class="hidden"/> <!-- need to hide this field -->
-							<input type="submit" name="submit" value="Go"></input>
-						</form>
-					</div>
 				<%
-					} else {
-				%>
-					
-				<% 
-					}
+					} 
 				%>
 				</div>
 			</div>
