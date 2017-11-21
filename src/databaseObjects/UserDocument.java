@@ -29,5 +29,4 @@ public class UserDocument {
 		String[] parts = mName.split("\\.");
 		return parts[parts.length - 1];
 	}
-
 }
