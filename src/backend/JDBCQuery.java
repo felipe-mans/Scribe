@@ -72,7 +72,7 @@ public class JDBCQuery {
 	private final static String addClass = "INSERT INTO Classes(classname, private) VALUES(?,?)";
 
 	// Documents
-	private final static String addDocument = "INSERT INTO Documents(userID, documentname, documenextension, file) VALUES(?, ?, ?, ?)";
+	private final static String addDocument = "INSERT INTO Documents(userID, documentname, file) VALUES(?, ?, ?)";
 
 	// Enrollments
 	private final static String addEnrollment = "INSERT INTO Enrollments(classID, userID) VALUES(?, ?)";
@@ -112,7 +112,7 @@ public class JDBCQuery {
 
 	// Database credentials
 	static final String USER = "root";
-	static final String PASS = "root";
+	static final String PASS = "nervouscandle5";
 
 	public static void connect() {
 		try {
@@ -500,13 +500,12 @@ public class JDBCQuery {
 
 	// DOCUMENT METHODS
 
-	public static void addDocument(int userID, String documentname, String documentextension, Part filePart) {
+	public static void addDocument(int userID, String documentname, Part filePart) {
 		connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(addDocument);
 			ps.setInt(1, userID);
 			ps.setString(2, documentname);
-			ps.setString(3, documentextension);
 			InputStream inputstream = filePart.getInputStream();
 			ps.setBinaryStream(3, inputstream, (int) filePart.getSize());
 			ps.executeUpdate();
@@ -537,13 +536,11 @@ public class JDBCQuery {
 			while (result.next()) {
 				Blob blob = result.getBlob("file");
 				fileData = blob.getBytes(1, (int) blob.length());
-				File file = new File(
-						"~/Downloads/" + result.getString("documentname") + result.getString("documentextension"));
+				File file = new File("~/Downloads/" + result.getString("documentname"));
 				FileOutputStream out = new FileOutputStream(file);
 				out.write(fileData);
 				out.close();
-				return new UserDocument(docID, result.getString("documentname"), result.getString("documentextension"),
-						file);
+				return new UserDocument(docID, result.getString("documentname"), file);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -578,7 +575,7 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
-		return null;
+		return userDocuments;
 	}
 
 	// TODO
@@ -658,7 +655,7 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
-		return null;
+		return usersInClass;
 	}
 
 	/**
@@ -698,7 +695,7 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
-		return null;
+		return enrollment;
 	}
 
 	/**
@@ -762,7 +759,7 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
-		return null;
+		return classDocuments;
 	}
 
 	/**
@@ -822,7 +819,7 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
-		return null;
+		return classMessages;
 	}
 
 	public static ClassMessage getMessageFromID(int messageID) {
@@ -925,7 +922,7 @@ public class JDBCQuery {
 		} finally {
 			close();
 		}
-		return null;
+		return requests;
 	}
 
 	public static Vector<User> getUsersWithRequests(int classID) {
