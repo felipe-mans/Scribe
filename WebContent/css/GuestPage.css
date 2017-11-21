@@ -9,11 +9,10 @@ body {
 .backdrop {
 	margin: auto;
 	width: 60%;
-	height: 95vh;
+	height: 87vh;
 	background-color: #fcf9e3;
 	position: relative;
-	border: 12px solid #fffef7;
-	
+	border: 12px solid #fffef7;	
 }
 
 .welcomeSection {
