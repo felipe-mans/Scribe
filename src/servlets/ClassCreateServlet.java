@@ -38,6 +38,7 @@ public class ClassCreateServlet extends HttpServlet{
 		}
 		else{
 			JDBCQuery.addClass(classname, isPrivate);
+			response.sendRedirect("jsp/MemberPage.jsp");
 		}
 	}
 }
