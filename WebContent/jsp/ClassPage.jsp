@@ -20,15 +20,9 @@ if(signedIn) {%>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClassPage.css">
 	
 	<div class="backdrop">
-		<div class="box" id="titleBar">
-			<div class="welcome">
-				<p id="welcome">Welcome to <%= currClass.getClassname()%></p>
-			</div>
-			<div class="creator">
-				<p id="creator">Created by: <!-- creator --></p>
-			</div>
-		</div>
-			
+		<p id="welcome">Welcome to <%= currClass.getClassname()%></p>
+		<p id="creator">Created by: <!-- creator --></p>
+				
 		<div class="box" id="membersList">
 			<p id="membersTitle">Members</p> <hr />
 			<div class="vertical-menu" id="classes-menu">
