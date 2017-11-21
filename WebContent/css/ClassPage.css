@@ -1,0 +1,82 @@
+body { 
+  background: url(../imgs/Parchment.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.backdrop {
+	margin: auto;
+	width: 60%;
+	height: 87vh;
+	background-color: #fcf9e3;
+	position: relative;
+	border: 12px solid #fffef7;	
+}
+
+#welcome {
+	font-size: 45px;
+	font-family: Hitchhiker;
+	text-align: center;
+	top: 5px;
+}
+
+#creator {
+	font-size: 20px;
+	font-family: Hitchhiker;
+	text-align: center;
+}
+
+#membersList {
+	height: 60%;
+	width: 20%;
+	margin-left: 2%;
+	position: relative;
+	border: 1px solid black;
+}
+
+#membersTitle {
+	font-family: Hitchhiker;
+	font-size: 20px;
+	text-align: center;
+}
+
+#discussionBox {
+	height: 60%;
+	width: 30%;
+	border: 1px solid black;
+}
+
+#discussionTitle {
+	font-family: Hitchhiker;
+	font-size: 20px;
+	text-align: center;
+}
+
+#documentsList {
+	height: 60%;
+	width: 30%;
+	border: 1px solid black;
+}
+
+#documentsTitle {
+	font-family: Hitchhiker;
+	font-size: 20px;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
