@@ -1,3 +1,12 @@
+/* Scribe
+ * 
+ * Vincent Rodriguez
+ * Michael Takla
+ * Felipe Mansilla
+ * Noah Feldman * 
+ * 
+ */
+
 package servlets;
 
 import java.io.IOException;

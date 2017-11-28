@@ -1,3 +1,12 @@
+/* Scribe
+ * 
+ * Vincent Rodriguez
+ * Michael Takla
+ * Felipe Mansilla
+ * Noah Feldmen
+ * 
+ */
+
 DROP DATABASE if exists Scribe;
 CREATE DATABASE Scribe;
 USE Scribe;

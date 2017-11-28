@@ -1,6 +1,12 @@
-/**
+/** Scribe
+ * 
+ * Vincent Rodriguez
+ * Michael Takla
+ * Felipe Mansilla
+ * Noah Feldmen
  * 
  */
+
 var popupBox = document.getElementById('formContent');
 
 // Get the button that opens the pop up Box

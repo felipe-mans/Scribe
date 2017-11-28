@@ -1,3 +1,12 @@
+/* Scribe
+ * 
+ * Vincent Rodriguez
+ * Michael Takla
+ * Felipe Mansilla
+ * Noah Feldman * 
+ * 
+ */
+
 package sockets;
 
 import java.io.IOException;
